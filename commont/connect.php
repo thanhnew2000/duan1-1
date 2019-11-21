@@ -9,6 +9,9 @@ try
 {
   $conn= new PDO("mysql:host=$hostname;dbname=$database",$username,$password,$options);
   $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+  $conn2= new PDO("mysql:host=$hostname;dbname=$database",$username,$password,$options);
+  $conn2->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
 
   		$sqltaikhoan="select * from users ";
 		$querytaikhoan=$conn->prepare($sqltaikhoan);
@@ -26,6 +29,13 @@ try
 		$querysubcategory->execute();
 		$rowsubcategory= $querysubcategory->fetchAll(PDO::FETCH_ASSOC);
 
+		$sqltest="select * from test ";
+		$querytest=$conn->prepare($sqltest);
+		$querytest->execute();
+		$rowtest= $querytest->fetchAll(PDO::FETCH_ASSOC);
+
+
+
  function users($id){
 	  global $conn;
 		
@@ -37,6 +47,50 @@ try
     return $row;
 		}
 
+function test($id){
+	  global $conn;
+		
+		$sql="select * from test where id_test={$id} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetch(PDO::FETCH_ASSOC);
+		
+    return $row;
+		}
+
+function test_question($idtest){
+	  global $conn;
+		
+		$sql="select * from test_question where id_test={$idtest} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetch(PDO::FETCH_ASSOC);
+		
+    return $row;
+		}
+
+		
+		function test_questionAll($idtest){
+	  global $conn;
+		
+		$sql="select * from test_question where id_test={$idtest} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetchAll(PDO::FETCH_ASSOC);
+		
+    return $row;
+		}
+
+function question($id){
+	  global $conn;
+		
+		$sql="select * from question where id_question={$id} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetch(PDO::FETCH_ASSOC);
+		
+    return $row;
+		}
 
  function category($id){
 	  global $conn;
