@@ -149,63 +149,18 @@ if (isset($rowkq['name_test'])) { ?>
 <body>
 	<div class="w-100">
 		<div class="row " style="width: 100%">
-		<div class="col-md-2" style="background: url('../image/menu.jpg');">
-
-			<div class="ten">
-			</br>
-				<img src="../image/2.jpg" style="width:50px;height:50px;border-radius: 100%;margin-left: 5px"> 
-				&nbsp;&nbsp;Nguyễn Thanh
-			</div>
-			<div class="menu">
-				<div class="boxmenu">
-					<a href="danhmuc.html" class="thea2"><p>Quản lí danh mục</p></a>
-				</div>
-				
-				<div class="boxmenu">
-					<a href="khoahoc.html" class="thea2"><p>Quản lí khóa học</p></a>
-				</div>
-					<div class="boxmenu">
-					<a href="giaovien.html" class="thea2"><p>Quản lí giáo viên</p></a>
-				</div>
-					<div class="boxmenu">
-					<a href="taikhoan.html" class="thea2"><p>Quản lí tài khoản</p></a>
-				</div>
-				<div class="boxmenu">
-					<a href="" class="thea2"><p>Quản lí đề thi</p></a>
-				</div>
-				<div class="boxmenu">
-					<a href="" class="thea2"><p>Quản lí bình luận</p></a>
-				</div>
-				<div class="boxmenu">
-					<a href="" class="thea2"><p>Quản lí slide - quảng cáo</p></a>
-				</div>
-
-			</div>
-
-			
-		</div>
+			<!--  MENU -->
+ <?php include_once '../_share/admin/menu.php' ?>
+ <!-- HẾT MENU -->
 
 		
 		<div class="col-md-10" style="background: #ddd;height:670px">
-			<div class="headerad">
-
-						<div class="btn-group" style="float: right;">
-						  <button type="button" class="btn btn-info" style="font-size: 14px">	<img src="../image/2.jpg" style="width:40px;height:35px;border-radius: 100px;"> Nguyễn Thanh Tuấn</button>
-						  <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    <span class="sr-only">Toggle Dropdown</span>
-						  </button>
-						  <div class="dropdown-menu">
-						    <a class="dropdown-item" href="thongtincanhan.html">Thông tin cá nhân</a>
-						    <a class="dropdown-item" href="#">Đăng xuất</a>
-						  <!--   <a class="dropdown-item" href="#">Something else here</a>
-						    <div class="dropdown-divider"></div>
-						    <a class="dropdown-item" href="#">Separated link</a> -->
-						  </div>
-						</div>
-			</div>
+		<!--  HEADER -->
+ <?php include_once '../_share/admin/header.php' ?>
+ <!-- HẾT HEADER -->
 			<div class="bodyad">
 				<div class="thanbody">
-				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px">Quản lí bài test - Thêm câu hỏi mới</p>
+				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px;color: #17a2b8;font-weight: bold">QUẢN LÍ ĐỀ THI - THÊM ĐỀ</p>
 
 				<div class="noidung">
 
@@ -255,9 +210,21 @@ function tong3() {
 
 			
 					<div class="col-md-4">
-						<p style="font-size:20px;font-weight: bold">Thêm đề</p>
+						<p style="font-size:20px;font-weight: bold">Random câu hỏi</p>
 				
-						<p style="font-weight: bold">Random câu hỏi:</p>
+						<!-- <p style="font-weight: bold">Random câu hỏi:</p> -->
+						<div class="row" style="margin-left: -5px;margin-top: -20px">
+							<div class="col-md-11">
+						
+						<p style="font-weight: bold">Môn:
+						<select name="idmon" class="form-control">
+							<?php foreach ($rowsubcategory as $value){ ?>
+							<option value="<?php echo $value['id_subcategory']?>" >
+								<?php echo $value['name_subcategory'].' - '.category($value['id_category'])['name_category']; ?>
+							 </option>
+
+							<?php } ?>
+						</select></p></div></div>
 						<div class="row" style="border: 1px solid #ddd;width:280px;margin-left: 10px;box-shadow: 1px 1px 1px gray">
 							<div class="col-md-12" style="text-align: center;font-weight: bold;">Loại câu</div>
 							<div class="col-md-4"><input id="de"  onkeyup="tong1()" type="number" class="form-control" name="caude"></div>
@@ -285,15 +252,7 @@ function tong3() {
 					<div class="col-md-7" style="">
 						<p style="font-size:20px;font-weight: bold ;text-align: center;">Thông tin đề</p>
 
-								<p style="font-weight: bold">Môn:
-						<select name="idmon" class="form-control">
-							<?php foreach ($rowsubcategory as $value){ ?>
-							<option value="<?php echo $value['id_subcategory']?>" >
-								<?php echo $value['name_subcategory'].' - '.category($value['id_category'])['name_category']; ?>
-							 </option>
-
-							<?php } ?>
-						</select></p>
+					
 					<div class="input-group mb-3" style="margin-top: 8px">
 			   		<div class="input-group-prepend">
 			      	 <span class="input-group-text">Tên đề</span>
@@ -316,7 +275,7 @@ function tong3() {
 				
 				<button type="submit" class="btn btn-info" style="width:75%;margin-top: 50px;float: left;">Tạo đề</button>
 				
-				<a href="" class="btn btn-danger" style="width:20%;margin-top: 50px;margin-left: 20px">Hủy</a>
+				<a href="dethi.php" class="btn btn-danger" style="width:20%;margin-top: 50px;margin-left: 20px">Hủy</a>
 
 
 

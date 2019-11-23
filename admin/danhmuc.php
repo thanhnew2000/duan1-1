@@ -61,7 +61,7 @@ if (isset($_GET['id_dm'])) {
  <!-- HẾT HEADER -->
 			<div class="bodyad">
 				<div class="thanbody">
-				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px">Quản lí danh mục</p>
+				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px;color: #17a2b8;font-weight: bold">QUẢN LÍ DANH MỤC</p>
 
 				<div class="noidung">
 				<div class="row">
@@ -162,7 +162,7 @@ if (isset($_GET['id_dm'])) {
 						<ul class="list-group">
 							<?php foreach ($rowcategory as $value){ ?>
 						  <a style="color:<?php if ($value['id_category']==$id_dm){ echo 'white' ;} ?>;line-height: 35px;margin-left: 35px" href="danhmuc.php?id_dm=<?php echo $value['id_category'] ?>"><li class="list-group-item <?php if ($value['id_category']==$id_dm){ echo 'active' ;} ?> btn sm"><?php echo $value['name_category']; ?>
-						  <a href="danhmuc2.php?id_dm=<?php echo $value['id_category'] ?>" class="btn btn-info" style="float: right;">Sửa</a>
+						  <a href="danhmuc2.php?id_dm=<?php echo $value['id_category'] ?>" class="btn btn-warning" style="float: right;">Sửa</a>
 						  </li>
 						  </a>
 						<?php } ?>

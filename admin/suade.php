@@ -80,66 +80,35 @@ if (isset($_GET['xoaquestion'])) {
 }
 
 
+if (isset($_POST['suatende'])) {
+	$suatende=$_POST['suatende'];
+	$suatimede=$_POST['suatimede'];
+
+
+	$splcapnhapttde="UPDATE test SET name_test='$suatende' , time_test='$suatimede' WHERE id_test='$idsuade' ";
+	$conn->exec($splcapnhapttde);?>
+<!-- 		<script type="text/javascript">alert("Sửa thành công");
+	</script> -->
+	
+<?php }
+
+//  CẬP NHẬP THÔNG TIN TÊN VÀ TIME CỦA ĐỀ
+
  ?>
 				
 
 <body>
 	<div class="w-100" style="width:100%">
 		<div class="row " style="width: 100%">
-		<div class="col-md-2" style="background: url('../image/menu.jpg');">
-
-			<div class="ten">
-			</br>
-				<img src="../image/2.jpg" style="width:50px;height:50px;border-radius: 100%;margin-left: 5px"> 
-				&nbsp;&nbsp;Nguyễn Thanh
-			</div>
-			<div class="menu">
-				<div class="boxmenu">
-					<a href="danhmuc.html" class="thea2"><p>Quản lí danh mục</p></a>
-				</div>
-				
-				<div class="boxmenu">
-					<a href="khoahoc.html" class="thea2"><p>Quản lí khóa học</p></a>
-				</div>
-					<div class="boxmenu">
-					<a href="giaovien.html" class="thea2"><p>Quản lí giáo viên</p></a>
-				</div>
-					<div class="boxmenu">
-					<a href="taikhoan.html" class="thea2"><p>Quản lí tài khoản</p></a>
-				</div>
-				<div class="boxmenu">
-					<a href="" class="thea2"><p>Quản lí đề thi</p></a>
-				</div>
-				<div class="boxmenu">
-					<a href="" class="thea2"><p>Quản lí bình luận</p></a>
-				</div>
-				<div class="boxmenu">
-					<a href="" class="thea2"><p>Quản lí slide - quảng cáo</p></a>
-				</div>
-
-			</div>
-
-			
-		</div>
+			<!--  MENU -->
+ <?php include_once '../_share/admin/menu.php' ?>
+ <!-- HẾT MENU -->
 
 		
 		<div class="col-md-10" style="background: #ddd;height:650px;overflow: auto">
-			<div class="headerad">
-
-						<div class="btn-group" style="float: right;">
-						  <button type="button" class="btn btn-info" style="font-size: 14px">	<img src="../image/2.jpg" style="width:40px;height:35px;border-radius: 100px;"> Nguyễn Thanh Tuấn</button>
-						  <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    <span class="sr-only">Toggle Dropdown</span>
-						  </button>
-						  <div class="dropdown-menu">
-						    <a class="dropdown-item" href="thongtincanhan.html">Thông tin cá nhân</a>
-						    <a class="dropdown-item" href="#">Đăng xuất</a>
-						  <!--   <a class="dropdown-item" href="#">Something else here</a>
-						    <div class="dropdown-divider"></div>
-						    <a class="dropdown-item" href="#">Separated link</a> -->
-						  </div>
-						</div>
-			</div>
+		<!--  HEADER -->
+ <?php include_once '../_share/admin/header.php' ?>
+ <!-- HẾT HEADER -->
 			<div class="bodyad">
 				<div class="thanbody">
 				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px;font-weight: bold;color:#17a2b8">QUẢN LÍ ĐỀ THI  
@@ -148,36 +117,37 @@ if (isset($_GET['xoaquestion'])) {
 					else{echo '- CHI TIẾT ĐỀ' ;}?>
 					
 				</p>
-
+	
 				<div class="noidung">
-
+<form method="POST">
 
 				<div class="row">
-					
+				
+		
 					<div class="col-md-3" style="margin-left: 20px">
 						<p style="font-size:20px;font-weight: bold;margin-right: 20px">Thông tin đề</p>
 				
 						<p style="font-weight: bold"></p>
 						<div class="row">
-				<div class="input-group mb-3" style="margin-top: 8px">
+				<a href="suade.php?idsuade=<?php echo $idsuade  ?>" class="thea"><div class="input-group mb-3" style="margin-top: 8px">
 			    <div class="input-group-prepend">
 			       <span class="input-group-text">Mã đề</span>
 			    </div>
 			    <input type="text" disabled="" name="tendsnew" value="<?php echo $idsuade ?>" class="form-control">
-				 </div>
-					
+				 </div></a>
+				
 				<div class="input-group mb-3" style="margin-top: 8px">
 			    <div class="input-group-prepend">
 			       <span class="input-group-text">Tên đề</span>
 			    </div>
-			    <input type="text" name="tendsnew" value="<?php echo test($idsuade)['name_test'] ?>" class="form-control">
+			    <input type="text" name="suatende" value="<?php echo test($idsuade)['name_test'] ?>" class="form-control">
 				 </div>
 
 				 <div class="input-group mb-3" style="margin-top: 8px">
 			    <div class="input-group-prepend">
 			       <span class="input-group-text">Thời gian (phút)</span>
 			    </div>
-			    <input type="text" name="tendsnew" value="<?php echo test($idsuade)['time'] ?>" class="form-control">
+			    <input type="text" name="suatimede" value="<?php echo test($idsuade)['time_test'] ?>" class="form-control">
 				 </div>
 		<!--  XEM TỔNG SỐ CÂU HỎI -->
 		<?php 
@@ -190,8 +160,11 @@ if (isset($_GET['xoaquestion'])) {
 			    <div class="input-group-prepend">
 			       <span class="input-group-text">Tổng câu</span>
 			    </div>
-			    <input type="text" name="tendsnew" disabled="" value="<?php echo $rowsocauhoi['total'] ?>" class="form-control">
+			    <input type="text" disabled="" value="<?php echo $rowsocauhoi['total'] ?>" class="form-control">
 				 </div>
+				<button type="submit"  class="btn btn-info" style="width:100%">Sửa thông tin đề  </button>
+		<form>	
+
 							
 	<!-- 				<div class="abc" style="">
 					<p style="font-size:15px;font-weight: bold;">Đổi câu hỏi</p>
@@ -238,9 +211,9 @@ if (isset($_GET['xoaquestion'])) {
 					  	<a href="suade.php?themcauhoi=ok&&idsuade=<?php echo test($idsuade)['id_test']; ?>"  class="btn btn-info offset-md-5" >Thêm câu hỏi</a>	
 
 							<form method="POST">
-								<div class="row">
-								<div class="col-md-4 offset-md-7"><input type="text" placeholder="mã câu hỏi trong đề" class="form-control" name="timkiem1"></div>
-								<button type="submit" class="btn"  style="border:1px solid gray"><i class='fas fa-search'></i></button>
+							<div class="row">
+								<div class="col-md-4 offset-md-7"><input type="text"  placeholder="mã câu hỏi trong đề" class="form-control" name="timkiem1"></div>
+								<button type="submit" name="sreach1"class="btn"  style="border:1px solid gray"><i class='fas fa-search'></i></button>
 							</div>
 							</form>
 
@@ -259,7 +232,7 @@ if (isset($_GET['xoaquestion'])) {
 							</tr>
 						</thead>
 						<tbody>
-							<?php if (!isset($_POST['timkiem1'])){ ?>
+							<?php if (!isset($_POST['sreach1'])){ ?>
 								
 							
 							<?php foreach (test_questionAll($idsuade) as $value){ ?>
@@ -274,7 +247,7 @@ if (isset($_GET['xoaquestion'])) {
 								<a href="suade.php?idsuade=<?php echo $idsuade ?>&&xoaquestion=<?php echo $value['id_question']  ?>" onclick="return confirm('Bạn có muốn xóa ')"  class="btn btn-danger">Xóa</a>
 								</td>
 							</tr>
-						<?php }}else if (isset($_POST['timkiem1'])) {
+						<?php }}else if (isset($_POST['sreach1'])) {
 								$matk=$_POST['timkiem1'];
 								$sqltk1="select * from test_question where id_test='$idsuade' and id_question='$matk' ";
 								$querytk=$conn->prepare($sqltk1);
@@ -316,10 +289,10 @@ if (isset($_GET['xoaquestion'])) {
 
 					<p style="font-size:20px;font-weight: bold ;text-align: center;">Danh sách câu theo môn </p>
 					  
-						<!-- 	<form method="POST">
+		<!-- 					<form method="POST">
 								<div class="row">
 								<div class="col-md-4 offset-md-7"><input type="text" placeholder="mã câu hỏi theo môn" class="form-control" name="timkiem2"></div>
-								<button type="submit" class="btn"  style="border:1px solid gray"><i class='fas fa-search'></i></button>
+								<button type="submit"  name="sreach2" class="btn"  style="border:1px solid gray"><i class='fas fa-search'></i></button>
 							</div>
 							</form> -->
 
@@ -354,12 +327,33 @@ if (isset($_GET['xoaquestion'])) {
 
 						<?php if (isset($_POST['them'])){
 							$mangthem=$_POST['them'];
+
+							//  KIỂM TRA CÓ ID DANH SÁCH HAY CHƯA
+
+							foreach ($mangthem as $value) {
+
+							$sqlkiemtra1="select * from test_question where id_test='$idsuade' and id_question='$value' ";
+							$querykiemtra1=$conn->prepare($sqlkiemtra1);
+							$querykiemtra1->execute();
+							$rowkiemtra1= $querykiemtra1->fetch(PDO::FETCH_ASSOC);
+
+							}
+
+							if (!isset($rowkiemtra1['id_question'])) {
+								
+					
 							foreach ($mangthem as $value) {
 								$sqlthem = "INSERT INTO test_question (id_test,id_question) VALUES ('$idsuade','$value')";
 					   			$conn->exec($sqlthem);	
 					   				header("location: suade.php?idsuade=$idsuade ");
 							}
-						} ?>
+
+
+						}else{ ?>
+								<script type="text/javascript">alert("Câu id <?php echo $rowkiemtra1['id_question']; ?> đã có trong đề thi hãy chọn lại");
+	</script>
+					<?php 	}
+					} ?>
 		
 
 
@@ -406,7 +400,7 @@ if (isset($_GET['xoaquestion'])) {
 							<form method="POST">
 								<div class="row">
 								<div class="col-md-4 offset-md-7"><input type="text" placeholder="mã câu theo môn cần đổi" class="form-control" name="timkiem3"></div>
-								<button type="submit" class="btn"  style="border:1px solid gray"><i class='fas fa-search'></i></button>
+								<button type="submit" name="sreach3" class="btn"  style="border:1px solid gray"><i class='fas fa-search'></i></button>
 							</div>
 							</form>
 
@@ -436,7 +430,7 @@ if (isset($_GET['xoaquestion'])) {
 						</thead>
 					
 
-			<?php if (!isset($_POST['timkiem3'])){ ?>
+			<?php if (!isset($_POST['sreach3'])){ ?>
 				
 			
 					<?php 
@@ -463,7 +457,7 @@ if (isset($_GET['xoaquestion'])) {
 					
 
 				 			
-		 <?php }}else if(isset($_POST['timkiem3'])){
+		 <?php }}else if(isset($_POST['sreach3'])){
 
 				 	$idkt3=$_POST['timkiem3'];
 					$sqlmon="select * from question where id_subcategory='$idmon' and id_question='$idkt3' ";
