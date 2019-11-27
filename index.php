@@ -49,21 +49,20 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 						<a href="" class="thea"><li>Trang chủ</li></a>
 						
 						<li class="dropdown">
-			      		 <a href="danhsach.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Các khóa học <span class="caret"></span></a>
+			      		 <a href="danhsach.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Khóa học <span class="caret"></span></a>
 			                <ul class="dropdown-menu">
-			                  <li><a href="danhsach.php">Action</a></li>
-			                  <li><a href="#">Another action</a></li>
-			                  <li><a href="#">Separated link</a></li>
-			                  <li><a href="#">Separated link</a></li>
-			                  <li><a href="#">Separated link</a></li>
+			                  <li><a href="danhsach.php">Lớp 12</a></li><br>
+			                  <li><a href="danhsach.php">Lớp 11</a></li><br>
+			                  <li><a href="danhsach.php">Lớp 10</a></li>
+			          
 			                </ul>
              			 </li>
 
 
 
 						<a href="giaovien.php" class="thea"><li>Giáo viên</li></a>
-						<a href="" class="thea"><li>Luyện đề</li></a>
-						<a href="" class="thea"><li>Hỗ trợ</li></a>
+						<a href="luyende.php" class="thea"><li>Luyện đề</li></a>
+					<!-- 	<a href="" class="thea"><li>Hỗ trợ</li></a> -->
 					
 					</ul>
 					<?php if (!isset($_SESSION['account'])){ ?>
@@ -81,6 +80,9 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 						  </button>
 						  <div class="dropdown-menu">
 						    <a class="dropdown-item" href="thongtincanhan.php">Thông tin cá nhân</a>
+						      <?php if (($_SESSION['account']['role'])=='100') { ?>
+						    <a class="dropdown-item" href="admin/dethi.php">Trang quản trị</a>
+						    <?php } ?>
 						    <a class="dropdown-item" href="them.php?do=logout">Đăng xuất</a>
 						  </div>
 						</div>

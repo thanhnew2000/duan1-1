@@ -1,4 +1,4 @@
-<?php require_once '../commont/connect.php'; ob_start();?>
+<?php require_once '../commont/connect.php'; ob_start();session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +24,9 @@ if (isset($_GET['idsuade'])){
 
 		if (isset($_POST['iddangkymon'])) {
 			$iddangkymon=$_POST['iddangkymon'];
+
+		$sqlthemidsub=" UPDATE test SET id_subcategory='$iddangkymon' where id_test='$idsuade'";
+		$conn->exec($sqlthemidsub);
 
 		
 		$sqlquestion="select * from question where id_subcategory='$iddangkymon' ";
@@ -105,11 +108,11 @@ if (isset($_POST['suatende'])) {
  <!-- HẾT MENU -->
 
 		
-		<div class="col-md-10" style="background: #ddd;height:650px;overflow: auto">
+		<div class="col-md-10" style="background: #ddd;height:650px;overflow: auto;width: 100%">
 		<!--  HEADER -->
  <?php include_once '../_share/admin/header.php' ?>
  <!-- HẾT HEADER -->
-			<div class="bodyad">
+			<div class="bodyad" style="width:1100px">
 				<div class="thanbody">
 				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px;font-weight: bold;color:#17a2b8">QUẢN LÍ ĐỀ THI  
 					<?php if (isset($_GET['doicauhoi'])){echo '- ĐỔI CÂU HỎI' ;}
@@ -125,7 +128,8 @@ if (isset($_POST['suatende'])) {
 				
 		
 					<div class="col-md-3" style="margin-left: 20px">
-						<p style="font-size:20px;font-weight: bold;margin-right: 20px">Thông tin đề</p>
+						<p style="font-size:20px;font-weight: bold;margin-right: 20px">Thông tin đề
+							<a href="dethi.php" class="btn btn-info">Quay về</a></p>
 				
 						<p style="font-weight: bold"></p>
 						<div class="row">

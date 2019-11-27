@@ -16,6 +16,16 @@
 
 
 </head>
+<?php if (isset($_POST['namerolesua'])) {
+	$namerolesua=$_POST['namerolesua'];
+	$idrole=$_GET['idrole'];
+
+	$sqlcntk=" UPDATE role SET name_role='$namerolesua' where id_role='$idrole' ";
+	$conn->exec($sqlcntk);
+	header("location: taikhoan.php?role=ok");
+	
+	
+} ?>
 
 <?php if (isset($_GET['xoaid'])) {
 	$xoaid=$_GET['xoaid'];
@@ -37,11 +47,19 @@
  <?php include_once '../_share/admin/header.php' ?>
  <!-- HẾT HEADER -->
 			<div class="bodyad">
+
 				<div class="thanbody">
-				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px">Quản lí tài khoản</p>
+				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px;color:#17a2b8;font-weight: bold"><?php if (isset($_GET['role'])){echo 'ROLE';}else {
+					echo 'QUẢN LÍ TÀI KHOẢN';
+				} ?>
+					
+				</p>
 
 				<div class="noidung">
-					<!-- <button type="submit" class="btn btn-info">Thêm giáo viên </button> -->
+<?php if (!isset($_GET['role'])){ ?>
+						
+				
+					<a href="taikhoan.php?role=ok" class="btn btn-info">Chỉnh sửa role </a>
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -87,9 +105,68 @@
 						</tbody>
 					</table>
 
+<?php }elseif (isset($_GET['role'])) { ?>
+							
+							<div class="row">
+								<div class="col-md-5">
+									<a href="taikhoan.php"  class="btn btn-info">Quay về</a>	
+									<table class="table">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Tên quyền</th>
+												<th>Chức năng</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php foreach ($rowrole as $value){ ?>
+												
+										<form  method="POST" accept-charset="utf-8">
+											
+											
+										
+											<tr>
+												<td><?php echo $value['id_role'] ?></td>
+												<td><input type="" style="margin-top: 10px" class="form-control" 
+												<?php if (!isset($_GET['idrole'])){ echo 'disabled';  }
+													if ((isset($_GET['idrole']))&&($_GET['idrole']!=$value['id_role'])){ echo 'disabled';  }
+													if ((isset($_GET['idrole']))&&($_GET['idrole']==$value['id_role'])) {
+														echo "name='namerolesua'";
+													}
+												?>
+												 	
+											
+												  value="<?php echo $value['name_role'] ?>"></td>
+
+												<td><!-- <button type="button" onclick="suatenrole()" class="btn btn-info">Sửa</button> -->
+													<?php if (!isset($_GET['idrole'])){ ?>
+														<a href="taikhoan.php?idrole=<?php echo $value['id_role'];  ?>&&role=ok"  class="btn btn-info">Thay đổi</a>	
+													<?php }elseif ((isset($_GET['idrole']))&&($_GET['idrole']!=$value['id_role'])) { ?>
+														<a href="taikhoan.php?idrole=<?php echo $value['id_role'];  ?>&&role=ok"  class="btn btn-info">Thay đổi</a>	
+												<?php  	}elseif (isset($_GET['idrole'])) { ?>
+														<button type="submit" class="btn btn-info">Sửa</button>
+														<a href="taikhoan.php?role=ok"  class="btn btn-info">Hủy</a>	
+													<?php } ?>
+													
+												</tr>	
+										<?php } ?>
+										</form>
+										</tbody>
+									</table>
+								</div>
+							</div>
+<!-- 
+<script type="text/javascript">
+	function suatenrole(){
+		document.getElementById()
+	}
+</script> -->
 
 
-					
+
+
+							
+						<?php } ?>
 				</div>
 				</div>
 				

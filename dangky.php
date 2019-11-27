@@ -83,7 +83,7 @@
 							<script type="text/javascript">alert("Email đã tồn tại ")</script>
 					<?php   } else{
 					 $dk="INSERT INTO users(username,password,name,phone_numbers,email,birthday,gender,image,role_id,status)
-             		 values ('$usernamedk','$passworddk','$namedk','$sdtdk','$emaildk','$birthdaydk','$gioitinhdk','1.png',1,'1')";
+             		 values ('$usernamedk','$passworddk','$namedk','$sdtdk','$emaildk','$birthdaydk','$gioitinhdk','1.png',1,1)";
              			$ok=$conn->exec($dk);
              		 if (isset($ok)) {
              	 	 ?> <script type="text/javascript">alert("Đăng ký thành công");</script>  <?php  

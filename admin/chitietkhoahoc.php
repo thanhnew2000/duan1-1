@@ -1,4 +1,4 @@
-<?php require "../commont/connect.php" ?>	
+<?php require "../commont/connect.php" ;session_start(); ?>	
 
 <!DOCTYPE html>
 <html>
@@ -36,7 +36,6 @@ if (isset($_POST['tenkhsua'])) {
 
 
 }
-
 
 
 

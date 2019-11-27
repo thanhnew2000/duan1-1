@@ -1,8 +1,9 @@
-<?php require "../commont/connect.php" ?>	
+<?php require "../commont/connect.php" ;session_start(); ?>	
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
+
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title></title>
 	<link rel="stylesheet" href="cssadmin.css">

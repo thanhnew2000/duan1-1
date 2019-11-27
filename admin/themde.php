@@ -1,4 +1,4 @@
-<?php require_once '../commont/connect.php';?>
+<?php require_once '../commont/connect.php';session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,8 +56,13 @@ if (isset($rowkq['name_test'])) { ?>
 		//  NẾU KHÔNG THÌ SANG B4
 		if (($rowtinhde['total']>=$_POST['caude'])&&($rowtinhtb['total']>=$_POST['cautb'])&&($rowtinhkho['total']>=$_POST['caukho']))
 		{
+			if (($_POST['caude']=="")&&($_POST['cautb']=="")&&($_POST['caukho']=="")) {
+				$id='';
+			}else {
+				$id=$idmon;
+			}
 
-			$sqldemoi="INSERT INTO test VALUES ('','$nametestnew','$timework')";
+			$sqldemoi="INSERT INTO test VALUES ('','$nametestnew','$timework','$id')";
 			$tao=$conn2->exec($sqldemoi); ?>
 				<script type="text/javascript">alert("Tạo thành công");</script> 
 			<?php  $idtest=$conn2->lastInsertId();
@@ -90,9 +95,9 @@ if (isset($rowkq['name_test'])) { ?>
 
 			$cautb=$_POST['cautb'];
 
-			$sqlarrcautb ="SELECT * FROM question WHERE id_subcategory='$idmon' and level=3 ORDER BY RAND() LIMIT $cautb ";
+			$sqlarrcautb ="SELECT * FROM question WHERE id_subcategory='$idmon' and level=2 ORDER BY RAND() LIMIT $cautb ";
 			$queryarrcautb=$conn->prepare($sqlarrcautb);
-			$queryarrcautb>execute();
+			$queryarrcautb->execute();
 			$arraytb= $queryarrcautb->fetchAll(PDO::FETCH_ASSOC);
 
 			foreach ($arraytb as $value) {
@@ -110,9 +115,9 @@ if (isset($rowkq['name_test'])) { ?>
 
 			$caukho=$_POST['caukho'];
 
-			$sqlarrcaukho ="SELECT * FROM question WHERE id_subcategory='$idmon' and level=3 ORDER BY RAND() LIMIT $caukho ";
+			$sqlarrcaukho ="SELECT * FROM question WHERE id_subcategory='$idmon' and level=1 ORDER BY RAND() LIMIT $caukho ";
 			$queryarrcaukho=$conn->prepare($sqlarrcaukho);
-			$queryarrcaukho>execute();
+			$queryarrcaukho->execute();
 			$arraykho= $queryarrcaukho->fetchAll(PDO::FETCH_ASSOC);
 
 			foreach ($arraykho as $value) {

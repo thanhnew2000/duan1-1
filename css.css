@@ -96,9 +96,10 @@
 .bodyphaittcn .row p {margin-top: 23px;font-size: 14px}
 
 .bodyphaittcn .row input {margin-top: 10px;}
-.boxde{width: 537px;height: 170px;background: none;float: left;margin-top:5px}
+.boxde{width: 100%;height: 170px;background: none;float: left;margin-top:5px}
 .boxde2{width: 538px;height: 170px;background: none;float: left;margin-left:24px;margin-top:5px}
-.hangluyende{width: 100%;height: 210px;background: white}
+.hangluyende{width: 100%;height: 220px;background: white}
 .thanhthoigian{width: 100%;height: 50px;background: pink;position: fixed;}
 .boxbailam{width: 600px;margin: auto}
 .formdn{width: 500px;margin: auto;height: 500px}
+.boxde3{width: 100%;background: none;float: left;margin-top:5px}

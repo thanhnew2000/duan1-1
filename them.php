@@ -21,7 +21,14 @@ if(password_verify($matkhau,$user['password'])){
 		'role'=>$user['role_id'],
 		'status'=>$user['status'],
 	];
-	header('location: index.php');
+	if (($_SESSION['account']['status']=='0')) {
+
+		 unset($_SESSION['account']);
+		   	header("Location: dangnhap.php");
+	}else {
+		header('location: index.php');
+	}
+	
 
 }else {
 	header('location: dangnhap.php');

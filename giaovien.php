@@ -43,19 +43,33 @@
 
 			</div>
 			<div class="bodygv">
-
+			
+			<?php foreach ($rowteacher as  $value){ ?>
+				<?php $id=$value['id_teacher']; ?>
 				<div class="boxgiaovien">
 					<div>
 					  <img src="image/logo.png" style="width:50px;position: absolute;">
-					<img src="image/2.jpg" style="width:100%;height:230px">
+					<img src="public/images/teacher/<?php echo teacher($id)['image']; ?>" style="width:100%;height:230px">
 					</div>
-					<p style="font-size:14px;text-align: center; "><span style="color: #007bff;font-weight: bold;">Cô: Nguyễn Thị Lanh</span></br>Hệ thống Giáo dục HOCMAI</p>
+					<p style="font-size:14px;text-align: center; margin-top: 7px"><span style="color: #007bff;font-weight: bold;">
+						<?php if ((teacher($id)['gender'])==2){echo 'Cô:';}
+						else{echo 'Thầy:';} ?>
+							
+					
+						<?php echo teacher($id)['name']; ?>
+							
+				
+					</p>
 			
-					<p style="font-size:12px;width:240px;text-align: center;margin-left: 5px">Cô truyền cảm hứng và nuôi dưỡng tình yêu học tập thông qua các hoạt động tương tác, các câu hỏi khám phá giúp các em hình thành khả năng sáng tạo và tư duy độc lập.</p>
-					<p><p class="gachchan"></p><a href="chitietgiaovien.php" style="font-size: 14px;float: right;margin-right: 10px">Xem thêm</a></p>
+					<div style="font-size:12px;width:240px;text-align: center;margin-left: 5px">
+						<?php  $thongtin=substr(teacher($id)['infomation'],0,350) ?>
+						<?php echo  $thongtin.'...'; ?>
+					</div>
+					<p><p class="gachchan"></p><a href="chitietgiaovien.php?idgiaovien=<?php echo teacher($id)['id_teacher'] ?>" style="font-size: 14px;float: right;margin-right: 10px">Xem thêm</a></p>
 					</br>
 
 				</div>
+			<?php } ?>
 				
 
 			</div>

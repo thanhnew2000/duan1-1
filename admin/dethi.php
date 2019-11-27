@@ -1,4 +1,6 @@
-<?php require_once '../commont/connect.php';?>
+<?php require_once '../commont/connect.php';session_start(); ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,6 +42,7 @@
 		<!--  HEADER -->
  <?php include_once '../_share/admin/header.php' ?>
  <!-- HẾT HEADER -->
+
 			<div class="bodyad">
 				<div class="thanbody">
 				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px;color: #17a2b8;font-weight: bold">QUẢN LÍ ĐỀ THI</p>

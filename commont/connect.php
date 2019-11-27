@@ -34,7 +34,7 @@ try
 		$querycourse->execute();
 		$rowcourse = $querycourse->fetchAll(PDO::FETCH_ASSOC);
 
-		$sqltest  ="select * from test ";
+		$sqltest  ="select * from test order by id_test desc ";
 		$querytest  =$conn->prepare($sqltest);
 		$querytest->execute();
 		$rowtest  = $querytest->fetchAll(PDO::FETCH_ASSOC);
@@ -54,6 +54,19 @@ try
 		$queryteacher =$conn->prepare($sqlteacher);
 		$queryteacher->execute();
 		$rowteacher = $queryteacher->fetchAll(PDO::FETCH_ASSOC);
+
+		$sqlrole="select * from role ";
+		$queryrole=$conn->prepare($sqlrole);
+		$queryrole->execute();
+		$rowrole= $queryrole->fetchAll(PDO::FETCH_ASSOC);
+
+		$sqlteacher="select * from teacher ";
+		$queryteacher=$conn->prepare($sqlteacher);
+		$queryteacher->execute();
+		$rowteacher= $queryteacher->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 
 
 
@@ -78,6 +91,17 @@ function test($id){
 		$query=$conn->prepare($sql);
 		$query->execute();
 		$row= $query->fetch(PDO::FETCH_ASSOC);
+		
+    return $row;
+		}
+
+		function test_sub($id){
+	  global $conn;
+		
+		$sql="select * from test where id_subcategory={$id} order by id_test desc limit 3";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetchAll(PDO::FETCH_ASSOC);
 		
     return $row;
 		}
@@ -208,6 +232,13 @@ function question($id){
 
 
 
+
+
+
+
+
+
+
 function executeQuery($sql, $getAll = true){
 	global $conn;
 
@@ -222,6 +253,7 @@ function executeQuery($sql, $getAll = true){
 		return $result[0];
 	}
 }
+
 
 
 

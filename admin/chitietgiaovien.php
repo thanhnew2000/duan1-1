@@ -1,4 +1,4 @@
-<?php require "../commont/connect.php" ?>	
+<?php require "../commont/connect.php";session_start();  ?>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +36,7 @@ if (isset($_GET['idteacher'])) {
  	$bangcap=$_POST['degreesua'];
 	$workplace=$_POST['workplacesua'];
 
-
-if ($anhsua='') {
+if ($anhsua=="") {
 	$splgvsua="UPDATE teacher SET name='$hoten',birthday='$ngayinh',infomation='$thongtin',phone_numbers='$sdt',email='$email',address='$diachi',gender='$gioitinh',specialize='$monday',degree='$bangcap',workplace='$workplace' WHERE id_teacher='$idteacher' ";
 	$conn->exec($splgvsua);
 	$ketqua="Sửa thành công";
@@ -79,7 +78,7 @@ if ($anhsua='') {
 					<div class="row">
 						<div class="col-md-4">
 							<div class="anhgv">
-								<img src="../image/2.jpg" style="width:100px;height:100px;border-radius: 100px;">
+								<img src="../public/images/teacher/<?php echo teacher($idteacher)['image']  ?>" style="width:100px;height:100px;border-radius: 100px;">
 								<p style="font-weight: bold"><?php echo teacher($idteacher)['name'] ?></p>
 							</div>
 							<p style="text-align: center;">
@@ -89,7 +88,8 @@ if ($anhsua='') {
 						</p>
 						</div>
 						<div class="col-md-7">
-							<p style="font-weight: bold ;font-size: 18px">Hồ sơ cá nhân</p>
+							<p style="font-weight: bold ;font-size: 18px">Hồ sơ cá nhân
+								<a href="giaovien.php" style="margin-left: 350px" class="btn btn-info">Quay về</a></p>
 							<div class="row">
 								<div class="col-md-6">
 						<form method="POST">
@@ -121,7 +121,7 @@ if ($anhsua='') {
 								</div>
 									<div class="col-md-6">
 								<span style="font-weight: bold">Ảnh</span>
-									<input type="file" class="form-control" name="anhsua" value ="0732183214">
+									<input type="file"  class="form-control" name="anhsua" value ="">
 								</div>
 							</div>
 

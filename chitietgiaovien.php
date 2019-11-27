@@ -18,18 +18,27 @@
     <?php include_once '_share/client/header.php' ?>
 <!-- hết div.header2 -->
 
+
+<?php if (isset($_GET['idgiaovien'])) {
+	$idgiaovien=$_GET['idgiaovien'];
+} ?>
+
+
 <body style="width:1347px;margin: auto;background: #eef1f2;">
 
 	<div style="width:1347px;height:500px;background: white;font-size: 20px;margin: auto">
 		<div class="col-md-3 offset-md-3"  style="width:100%;height:500px;padding-top: 200px;float: left;">
-		<p>CÔ GIÁO</p>
+		<p><?php if ((teacher($idgiaovien)['gender'])==2){echo 'CÔ GIÁO';} 
+		else {echo 'THẦY GIÁO';	}?>
+			
+	
 		<p class="gachchan" style="width:300px;margin-top: -10px;margin-top: -10px"></p>
 		<Br>
-			<p style="color: #0067b4;font-weight: bold;">NGUYỄN THỊ LANH</p>
+			<p style="color: #0067b4;font-weight: bold;"><?php echo teacher($idgiaovien)['name']; ?></p>
 			<p class="gachchan" style="width:300px;margin-top: -10px;"></p><br>
-			<p>GIÁO VIÊN DẠY TOÁN</p>
+			<p>Giáo viên dạy : <?php echo teacher($idgiaovien)['specialize'] ?></p>
 		</div>
-		<div  class="col-md-2"  style="float: left;"><img src="image/2.jpg" style="width:250px;height:300px;margin-top: 150px"></div>
+		<div  class="col-md-2"  style="float: left;"><img src="public/images/teacher/<?php echo teacher($idgiaovien)['image']; ?>" style="width:300px;height:300px;margin-top: 150px"></div>
 	</div>
 
 	
@@ -70,7 +79,7 @@
 	   				<div class="row" style="width:1000px;margin:auto">
 	   					<!-- box giáo viên -->
 	   					<div class="col-md-6" style="background: none">
-	   						<img src="image/2.jpg" style="width:100%;height:380px">
+	   						<img src="public/images/teacher/<?php echo teacher($idgiaovien)['image']; ?>" style="width:100%;height:380px">
 	   					</div>
 	   					<div class="col-md-6" style="background: white;box-shadow: 1px 5px 8px #888888">
 	   						<div class="otieudegv">
@@ -85,7 +94,7 @@
 	   												Họ và tên
 	   											</div>
 	   											<div>
-	   												Nguyễn Thị Lanh
+	   												<?php echo teacher($idgiaovien)['name']; ?>
 	   											</div>
 	   										</div>
 	   									</td>
@@ -99,7 +108,7 @@
 	   												Nơi công tác
 	   											</div>
 	   											<div style="width:300px">
-	   												HỌC VIỆN BÁO CHÍ VÀ TUYÊN TRUYỀN
+	   												<?php echo teacher($idgiaovien)['workplace']; ?>
 	   											</div>
 	   										</div>
 	   									</td>	
@@ -113,7 +122,7 @@
 	   											Môn dạy
 	   											</div>
 	   											<div>
-	   												Toán
+	   												<?php echo teacher($idgiaovien)['specialize']; ?>
 	   											</div>
 	   										</div>
 	   									   </td>	
@@ -125,7 +134,7 @@
 			   												Học vị
 			   											</div>
 			   											<div>
-			   												Tiến sĩ
+			   												<?php echo teacher($idgiaovien)['degree']; ?>
 			   											</div>
 			   										</div>
 	   									   			</td>	
@@ -143,7 +152,7 @@
 	   											Email
 	   											</div>
 	   											<div style="width:250px;font-size: 13px">
-	   												nguyenlanh@gmail.com
+	   												<?php echo teacher($idgiaovien)['email']; ?>
 	   											</div>
 	   										</div>
 	   											</td>
@@ -165,9 +174,10 @@
 	   			 <div style="width:700px;margin:auto;">
 	   				<p style="text-align: center;font-size: 20px">Đôi nét về giáo viên</p>
 	   				<div style="text-align: left;font-size: 20px;background: #fef7a4;box-shadow: 1px 1px 8px #888888;">
-	   					<p style="width:650px;margin:auto;font-size: 15px;padding-top: 15px;padding-bottom: 15px">- Nhiều năm kinh nghiệm dạy và luyện thi môn Ngữ văn cô có nhiều học sinh đỗ vào trường chuyên, đỗ cao trong các kỳ thi tuyển sinh vào lớp 6, lớp 10 vì vậy các kiến thức cô đưa ra trọng tâm, với mỗi khối lượng kiến thức cô đưa ra nhiều dạng câu hỏi khác nhau, nhiều dạng bài tập ôn luyện để rèn phương pháp và kỹ năng làm bài văn đạt điểm cao.</br></br>
-
-- Phong cách chậm rãi, giọng nói từ tốn, giọng văn sắc sảo cô sẽ giúp học sinh có một cái nhìn toàn cảnh về tác phẩm từ đó khơi dậy hứng thú học văn, tình yêu và niềm say mê văn chương của học trò</p></div>
+	   					<div style="width:650px;margin:auto;font-size: 15px;padding-top: 15px;padding-bottom: 15px">
+	   						<?php echo teacher($idgiaovien)['infomation']; ?>
+	   					</div>
+</div>
 	   			</div>
 
 

@@ -1,5 +1,5 @@
 <?php 
-require_once '../commont/connect.php';?>
+require_once '../commont/connect.php';session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +11,7 @@ require_once '../commont/connect.php';?>
 	<script src="../public/js/jquery-3.4.1.slim.min.js"></script>
 	<script src="../public/js/popper.min.js"></script>
 	<script src="../public/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../public/ckeditor/ckeditor.js"></script>
 </head>
 
 <?php 
@@ -33,9 +34,9 @@ if (isset($_POST['guithem'])) {
 
 
 
-$sqlthemquestion = "INSERT INTO question VALUES ('', '$cauhoithem','$anhthem','$athem','$bthem','$cthem','$dthem','$dapanthem','$levelthem','$idmonthem')";
+	$sqlthemquestion = "INSERT INTO question VALUES ('','$cauhoithem','$anhthem','$athem','$bthem','$cthem','$dthem','$dapanthem','$levelthem','$idmonthem')";
  	$conn->exec($sqlthemquestion);
-	echo 'THêm mới thành công';
+	header("location: cauhoi.php");
 	
 }
 
@@ -43,6 +44,7 @@ if (isset($_POST['guisua'])) {
 	$idsuacau=$_GET['suacauhoi'];
 	$idmonsua=$_POST['idmonsua'];
 	$cauhoisua=$_POST['cauhoisua'];
+
 	$anhsua=$_POST['anhsua'];
 	$levelsua=$_POST['levelsua'];
 	$asua=$_POST['asua'];
@@ -54,6 +56,7 @@ if (isset($_POST['guisua'])) {
 	$spldoi="UPDATE question SET name_question='$cauhoisua' ,image='$anhsua',a='$asua',b='$bsua',c='$csua',d='$dsua',answer='$dapansua',id_subcategory='$idmonsua'
 	WHERE id_question='$idsuacau' ";
 	$conn->exec($spldoi);
+	header("location: cauhoi.php");
 
 	
 }
@@ -114,8 +117,9 @@ if (isset($_POST['guisua'])) {
 
 							<?php } ?>
 						</select></p>
-						<p style="font-weight: bold">Câu hỏi :
-							<textarea name="cauhoithem"   rows="5" class="form-control"></textarea></p>
+								<p style="font-weight: bold">Câu hỏi :
+							<textarea name="cauhoithem" id="editor1"   rows="5" class="form-control"></textarea></p>
+					
 						<div style="font-weight: bold">Image :
 						
 
@@ -140,6 +144,7 @@ if (isset($_POST['guisua'])) {
 								
 							</select>
 							</p>
+					
 					<!-- 		<input type="radio" class="radio" name="mucdo" >Dễ
 							<input type="radio" class="radio" name="mucdo" >Dễ
 							<input type="radio" class="radio" name="mucdo" >Dễ -->
@@ -212,7 +217,7 @@ if (isset($_POST['guisua'])) {
 							<?php } ?>
 						</select></p>
 						<p style="font-weight: bold">Câu hỏi :
-							<textarea name="cauhoisua"  rows="5" class="form-control"><?php echo question($idcausua)['name_question'];  ?></textarea></p>
+							<textarea name="cauhoisua" id="editor1"   rows="5" class="form-control"><?php echo question($idcausua)['name_question'];  ?></textarea></p>
 						<div style="font-weight: bold">Image :
 						
 
@@ -315,6 +320,10 @@ if (isset($_POST['guisua'])) {
 			</div>
 		</div>
 
+	<script>
+ 
+           CKEDITOR.replace( 'editor1' );
+       </script>
 
 
 

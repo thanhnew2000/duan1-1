@@ -18,6 +18,11 @@ if (isset($_GET['idtk'])) {
 	<script src="../public/js/popper.min.js"></script>
 	<script src="../public/js/bootstrap.min.js"></script>
 </head>
+<?php if (isset($_GET['idtk'])){
+	$idtk=$_GET['idtk'];
+} ?>
+	
+
 <?php if (isset($_POST['suarole'])) {
 	$iduser=$_GET['idtk'];
 	$suarole=$_POST['suarole'];
@@ -25,7 +30,7 @@ if (isset($_GET['idtk'])) {
 
 	$sqlcntk=" UPDATE users SET status='$suastatus',role_id='$suarole' where id_user='$iduser' ";
 	$conn->exec($sqlcntk);
-	header('location: chitiettaikhoan.php');
+	header("location: taikhoan.php");
 	
 } ?>
 
@@ -51,14 +56,14 @@ if (isset($_GET['idtk'])) {
  <!-- HẾT HEADER -->
 			<div class="bodyad">
 				<div class="thanbody">
-				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px">Tài khoản - chi tiết</p>
+				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px;color:#17a2b8;font-weight: bold">CHI TIẾT TÀI KHOẢN</p>
 		<form action="" method="POST" accept-charset="utf-8">
 				<div class="noidung">
 					<div class="row">
 						<div class="col-md-4">
 							<div class="anhgv">
-								<img src="../image/2.jpg" style="width:100px;height:100px;border-radius: 100px;">
-								<p style="font-weight: bold"> id: 0832</p>
+								<img src="../public/images/user/<?php echo users($idtk)['image'] ?>" style="width:100px;height:100px;border-radius: 100px;">
+								<p style="font-weight: bold"> id: <?php echo $idtk ?></p>
 							</div>
 						</div>
 						<div class="col-md-7">
@@ -98,20 +103,15 @@ if (isset($_GET['idtk'])) {
 									} ?>
 								</div>
 				
-							
-						
+				
 					
 								<!-- ROLE -->
 								<div class="col-md-4">
 								<span style="font-weight: bold">Role :</span>
 								<select name="suarole" class="form-control" >
-									<?php if (users($idtk)['role_id']==1){ ?>
-										<option value="1" selected>Thành viên</option>
-										<option value="100">Quản trị</option>
-									<?php }elseif (users($idtk)['role_id']==100) {?>
-										<option value="1" >Thành viên</option>
-										<option value="100" selected>Quản trị</option>
-										
+							
+								<?php foreach ($rowrole as $value){ ?>
+										<option value="<?php echo $value['id_role'];  ?>" <?php if (users($idtk)['role_id']=$value['id_role']){echo 'selected';} ?>><?php echo $value['name_role'] ?></option>
 									<?php } ?>
 								
 										

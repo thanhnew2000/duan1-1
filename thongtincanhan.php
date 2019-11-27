@@ -64,7 +64,10 @@
 
 
 
-
+<style type="text/css" media="screen">
+	table td:hover{}
+	a:hover{text-decoration: none}
+</style>
 
 
 <body style="background: #ddd">
@@ -122,6 +125,7 @@
 			<table class="table">
 			
 				<tbody>
+			<!--  -->
 					<tr>
 						<td><a href="thongtincanhan.php">Thông tin cá nhân</a></td>
 					</tr>

@@ -1,5 +1,5 @@
 <?php 
-require_once '../commont/connect.php'; ?>
+require_once '../commont/connect.php';session_start();  ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +53,7 @@ if ((isset($_POST['locmon']))&&(isset($_POST['idcautk']))) {
 			$chan='ok';
 
 						if ($idlocmon=='all') {
-						$sqlcauhoi="select * from question ";
+						$sqlcauhoi="select * from question ORDER BY id_question DESC  ";
 						$querycauhoi=$conn->prepare($sqlcauhoi);
 						$querycauhoi->execute();
 						$rowcauhoi= $querycauhoi->fetchAll(PDO::FETCH_ASSOC);	
@@ -65,7 +65,7 @@ if ((isset($_POST['locmon']))&&(isset($_POST['idcautk']))) {
 			}else if ($_POST['idcautk']!='') {
 			$idlocmon=$_POST['locmon'];
 			$idcautk=$_POST['idcautk'];
-
+			
 				$sqlcauhoi1="select * from question where id_question='$idcautk' ";
 				$querycauhoi1=$conn->prepare($sqlcauhoi1);
 				$querycauhoi1->execute();
@@ -75,7 +75,7 @@ if ((isset($_POST['locmon']))&&(isset($_POST['idcautk']))) {
 			}
 			else {
 				$chan='ok';
-				$sqlcauhoi="select * from question  ";
+				$sqlcauhoi="select * from question ORDER BY id_question DESC ";
 				$querycauhoi=$conn->prepare($sqlcauhoi);
 				$querycauhoi->execute();
 				$rowcauhoi= $querycauhoi->fetchAll(PDO::FETCH_ASSOC);	}
@@ -140,7 +140,7 @@ if (isset($_GET['xoacauhoi'])) {
  <!-- HẾT HEADER -->
 
 
-			<div class="bodyad">
+			<div class="bodyad" style="width:1100px">
 				<div class="thanbody">
 				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px;font-weight: bold;color:#17a2b8">QUẢN LÍ CÂU HỎI</p>
 
@@ -169,10 +169,11 @@ if (isset($_GET['xoacauhoi'])) {
 							<tr>
 								<th>MÃ CÂU HỎI</th>
 								<th style="width:300px">CÂU HỎI</th>
-								<th>IMAGE</th>
+						
 								<th>TRẢ LỜI</th>
 							
 								<th>Đáp án</th>
+								<th>Mức độ</th>
 								<th>ID_MÔN</th>
 								
 
@@ -193,7 +194,7 @@ if (isset($_GET['xoacauhoi'])) {
 							<tr>
 								<td><?php echo $value['id_question'] ?></td>
 								<td><?php echo $value['name_question'] ?></td>
-								<td></td>
+						
 								<td>
 								
 									<input type="text" disabled class="form-control" name="" value="<?php echo 'A. '.$value['a'] ?>">
@@ -205,6 +206,12 @@ if (isset($_GET['xoacauhoi'])) {
 								</td>
 					
 								<td><?php echo $value['answer'] ?></td>
+								<td><?php if ($value['level']==1) {echo "Khó" ;}
+								elseif ($value['level']==2) {echo "TB" ;}
+								elseif ($value['level']==3) {echo "Dễ" ;}
+
+								?></td>
+
 								<td><?php echo $value['id_subcategory'] ?></td>
 								<td>
 								<a href="thembaitest.php?suacauhoi=<?php echo $value['id_question'] ?>"  class="btn btn-info">Sửa</a>	
@@ -218,7 +225,7 @@ if (isset($_GET['xoacauhoi'])) {
 									<tr>
 								<td><?php echo $rowcauhoi1['id_question'] ?></td>
 								<td><?php echo $rowcauhoi1['name_question'] ?></td>
-								<td></td>
+								
 								<td>
 								
 									<input type="text" disabled class="form-control" name="" value="<?php echo 'A. '.$rowcauhoi1['a'] ?>">
@@ -230,6 +237,11 @@ if (isset($_GET['xoacauhoi'])) {
 								</td>
 					
 								<td><?php echo $rowcauhoi1['answer'] ?></td>
+								<td><?php if ($rowcauhoi1['level']==1) {echo "Khó" ;}
+								elseif ($rowcauhoi1['level']==2) {echo "TB" ;}
+								elseif ($rowcauhoi1['level']==3) {echo "Dễ" ;}
+
+								?></td>
 								<td><?php echo $rowcauhoi1['id_subcategory'] ?></td>
 								<td>
 								<a href="thembaitest.php?suacauhoi=<?php  echo $rowcauhoi1['id_question'] ?>"  class="btn btn-info">Sửa</a>	
