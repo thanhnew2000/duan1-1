@@ -38,12 +38,12 @@ if (isset($_GET['id_dm'])) {
    		header("location: danhmuc.php?id_dm=$id_dm ");
 	
 } ?>
-<?php if (isset($_GET['xoamon'])) {
+<!-- <?php if (isset($_GET['xoamon'])) {
 		$xoamon=$_GET['xoamon'];
 		$sqlxoamon="DELETE FROM subcategory WHERE id_subcategory='$xoamon' " ;
 		$conn->exec($sqlxoamon);
 
-} ?>
+} ?> -->
 
 
 
@@ -61,12 +61,15 @@ if (isset($_GET['id_dm'])) {
  <!-- HẾT HEADER -->
 			<div class="bodyad">
 				<div class="thanbody">
-				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px;color: #17a2b8;font-weight: bold">QUẢN LÍ DANH MỤC</p>
+				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px;color: #17a2b8;font-weight: bold">QUẢN LÍ LỚP</p>
 
 				<div class="noidung">
 				<div class="row">
+						<div class="col-md-12">
+							<div class="row" style="height: 30px">
+													
 			<div class="col-md-2" style="padding-bottom: 10px">
-					<a href="danhmuc.php?themdanhmuc&&id_dm=<?php echo $id_dm ?>" style="margin-left: 8px"  class="btn btn-info">Thêm danh mục </a>
+					<a href="danhmuc.php?themdanhmuc&&id_dm=<?php echo $id_dm ?>" style="margin-left: 8px"  class="btn btn-info">Thêm lớp</a>
 			</div>
 					<?php if (isset($_GET['themdanhmuc'])){?>
 						
@@ -78,7 +81,7 @@ if (isset($_GET['id_dm'])) {
 				
 				 <div class="input-group mb-3" style="margin-top: 8px">
 			     <div class="input-group-prepend">
-			       <span class="input-group-text">Tên danh mục</span>
+			       <span class="input-group-text">Tên lớp</span>
 			    </div>
 			    <input type="text" name="tendsnew" class="form-control">
 				  </div>
@@ -98,26 +101,46 @@ if (isset($_GET['id_dm'])) {
 					</div>
 				
 			<?php }  ?>
+							</div>
+						</div>
+						<div class="col-md-12">
+						<ul class="list-group">
+						<div class="row">
+							
+							<?php foreach ($rowcategory as $value){ ?>
+						<div class="col-md-4">
+						  <a style="color:<?php if ($value['id_category']==$id_dm){ echo 'white' ;} ?>;line-height: 35px;margin-left: 35px" href="danhmuc.php?id_dm=<?php echo $value['id_category'] ?>"><li class="list-group-item <?php if ($value['id_category']==$id_dm){ echo 'active' ;} ?> btn sm"><?php echo $value['name_category']; ?>
+						  <a href="danhmuc2.php?id_dm=<?php echo $value['id_category'] ?>" class="btn btn-warning" style="float: right;">Sửa</a>
+						  </li>
+						  </a>
+						</div>
+						<?php } ?>
+						</ul>	
+						</div>
+
 					
 					
 
 				<!-- 	<button type="submit" class="btn btn-info">Thêm </button>
 					<button type="submit" class="btn btn-info">Huy </button> -->
 				</div>
-				
+<?php if (isset($_GET['id_dm'])){ ?>
+		
+
 					<div class="row">
-					<div class="col-md-8">
+
+					<div class="col-md-12	">
 						<p style="background: none;height:35px;margin-left: 10px;font-weight: bold;color:#17a2b8">
 							<?php echo category($id_dm)['name_category']; ?>
 
 							<?php if (!isset($_GET['themmon'])){?>
 								
 						
-						 <a href="danhmuc.php?themmon&&id_dm=<?php echo $id_dm ?>" style="margin-left: 8px"  class="btn btn-info">Thêm môn </a>	<?php }  ?>
+						 <a href="danhmuc.php?themmon&&id_dm=<?php echo $id_dm ?>" style="margin-left: 8px"  class="btn btn-info">Thêm môn <?php echo category($id_dm)['name_category'] ?> </a>	<?php }  ?>
 						</p>
 					<?php if (isset($_GET['themmon'])){ ?>
 				 <form method="POST">
-						<div class="input-group mb-3" style="margin-top: 8px;width:360px; float: right;margin-top: -44px;margin-right: 250px">
+						<div class="input-group mb-3" style="margin-top: 8px;width:360px; float: right;margin-top: -44px;margin-right: 550px">
 					     <div class="input-group-prepend">
 					       <span class="input-group-text">Tên môn</span>
 					    </div>
@@ -131,7 +154,7 @@ if (isset($_GET['id_dm'])) {
 			
 					<?php  } ?>
 
-					<table class="table table-striped">
+					<table class="table table-striped ">
 						<thead>
 							<tr>
 								<th>id_mon</th>
@@ -151,14 +174,14 @@ if (isset($_GET['id_dm'])) {
 								<td><?php echo $value['name_subcategory']; ?></td>
 							
 								<td><a href="danhmuc2.php?id_dm=<?php echo $id_dm ?>&&id_sub=<?php echo $value['id_subcategory']; ?>" class="btn btn-warning">Sửa</a>
-									<a href="danhmuc.php?id_dm=<?php echo $id_dm ?>&&xoamon=<?php echo $value['id_subcategory']; ?>"  onclick="return confirm('Bạn có muốn xóa môn này ?')" class="btn btn-danger" >Xóa</a></td>
+									<a href=""  onclick="return confirm('Môn không thể xóa?')" class="btn btn-danger" >Xóa</a></td>
 							</tr>
 						<?php } ?>
 				
 						</tbody>
 					</table>
 				</div>
-				<div class="col-md-3">
+	<!-- 			<div class="col-md-3">
 						<ul class="list-group">
 							<?php foreach ($rowcategory as $value){ ?>
 						  <a style="color:<?php if ($value['id_category']==$id_dm){ echo 'white' ;} ?>;line-height: 35px;margin-left: 35px" href="danhmuc.php?id_dm=<?php echo $value['id_category'] ?>"><li class="list-group-item <?php if ($value['id_category']==$id_dm){ echo 'active' ;} ?> btn sm"><?php echo $value['name_category']; ?>
@@ -167,7 +190,7 @@ if (isset($_GET['id_dm'])) {
 						  </a>
 						<?php } ?>
 						</ul>	
-				</div>
+				</div> -->
 				</div>
 
 					
@@ -177,7 +200,7 @@ if (isset($_GET['id_dm'])) {
 			</div>
 		</div>
 
-
+	<?php } ?>	
 
 
 		</div>

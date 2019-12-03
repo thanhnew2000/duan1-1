@@ -28,14 +28,6 @@ if (isset($_GET['idkhoahoc'])){
 
 	
 
-
-<?php if (isset($_GET['xoaid'])) {
-	$xoaid=$_GET['xoaid'];
-	$sqlxoatk="DELETE FROM users WHERE id_user='$xoaid' " ;
-	$conn->exec($sqlxoatk);
-	header('location: taikhoan.php');
-} ?>
-
 <!-- THÊM CHUYÊN ĐỀ -->
 <?php if (isset($_POST['tenchuyendethem'])){
 	$tenchuyendethem=$_POST['tenchuyendethem'];
@@ -63,7 +55,13 @@ if (isset($_GET['idkhoahoc'])){
 	
 <?php } ?>
 	
-
+<?php if (isset($_GET['idxoabaigiang'])) {
+	$idxoabaigiang=$_GET['idxoabaigiang'];
+		$sqlxoabg="DELETE FROM lesson WHERE id_lesson='$idxoabaigiang' " ;
+		$conn->exec($sqlxoabg);
+		header("location: chitietchuyende.php?idchuyende='$idchuyende' ");
+	
+} ?>
 
 
 
@@ -161,7 +159,9 @@ if (isset($_GET['idkhoahoc'])){
 										<td><?php echo $value['id_lesson'] ?></td>
 										<td style=""><?php echo $value['name_lesson'] ?></td>
 										
-										<td><a href="chitietbaigiang.php?idbaigiang=<?php echo $value['id_lesson']; ?>" class="btn btn-info">Xem</a><a href="" class="btn btn-danger" style="margin-left: 10px">Xóa</a></td>
+										<td><a href="chitietbaigiang.php?idbaigiang=<?php echo $value['id_lesson']; ?>" class="btn btn-info">Xem</a>
+											<a href="chitietchuyende.php?idxoabaigiang=<?php echo $value['id_lesson']; ?>" 
+											onclick="return confirm('Bạn có muốn xóa bài giảng này?')" class="btn btn-danger" style="margin-left: 10px">Xóa</a></td>
 
 									</tr>
 							<?php }  ?>

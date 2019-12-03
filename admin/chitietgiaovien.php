@@ -12,7 +12,7 @@
 	<script src="../public/js/jquery-3.4.1.slim.min.js"></script>
 	<script src="../public/js/popper.min.js"></script>
 	<script src="../public/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../public/ckeditor/ckeditor.js"></script>
+	<script src="../public/ckeditor/ckeditor.js"></script>
 </head>
 
 
@@ -155,7 +155,7 @@ if ($anhsua=="") {
 							</div>
 
 							<span style="font-weight: bold">Thông tin : </span>
-							<textarea  id="editor1"  name="infosua" rows="8" class="form-control"> <?php 
+							<textarea    name="infosua" rows="8" class="form-control"> <?php 
 							echo teacher($idteacher)['infomation']; ?>
 							</textarea>
 
@@ -165,7 +165,6 @@ if ($anhsua=="") {
 					</div>
 </form>
 	<script>
- 
            CKEDITOR.replace( 'editor1' );
        </script>
 

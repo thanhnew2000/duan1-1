@@ -94,9 +94,9 @@ if (isset($_GET['xoacate'])) {
 			    <input type="file" name="imagecatesua" value="<?php echo category($id_dm)['name_category']; ?>" class="form-control">
 
 				  </div>
-				  <button type="submit" class="btn btn-info" style="margin-left: 450px">Sửa </button>
+				  <button type="submit" class="btn btn-info" style="margin-left: 510px">Sửa </button>
 				  <a href="danhmuc.php?id_dm=<?php echo $id_dm ?>" class="btn btn-info"style="margin-left: 5px">Hủy </a>
-				    <a href="danhmuc2.php?id_dm=<?php echo $id_dm ?>&&xoacate" onclick="return confirm('Bạn có muốn xóa danh mục này?')"class="btn btn-info"style="margin-left: 5px">Xóa </a>
+				 <!--    <a href="danhmuc2.php?id_dm=<?php echo $id_dm ?>&&xoacate" onclick="return confirm('Bạn có muốn xóa danh mục này?')"class="btn btn-info"style="margin-left: 5px">Xóa </a> -->
 				</div>
 			</form>
 

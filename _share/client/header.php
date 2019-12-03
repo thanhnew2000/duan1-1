@@ -10,9 +10,10 @@
 						    <span class="sr-only">Toggle Dropdown</span>
 						  </button>
 						  <div class="dropdown-menu">
-						    <a class="dropdown-item" href="danhsach.php">Lớp 12 </a>
-						    <a class="dropdown-item" href="danhsach.php">Lớp 11 </a>
-						    <a class="dropdown-item" href="danhsach.php">Lớp 10 </a>
+						  	      	<?php foreach ($rowcategory as $value){ ?>
+							  <a class="dropdown-item" href="danhsach.php?idcate=<?php echo $value['id_category'] ?>"><?php echo $value['name_category'] ?></a>
+				
+						    		 <?php  }?>
 			
 						  </div>
 						</div>	

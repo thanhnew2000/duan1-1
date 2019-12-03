@@ -66,6 +66,18 @@ try
 		$rowteacher= $queryteacher->fetchAll(PDO::FETCH_ASSOC);
 
 
+		$sqlcomment="select * from comment  ";
+		$querycomment=$conn->prepare($sqlcomment);
+		$querycomment->execute();
+		$rowcomment= $querycomment->fetchAll(PDO::FETCH_ASSOC);
+
+		$sqlshare="select * from share order by id_share desc ";
+		$queryshare=$conn->prepare($sqlshare);
+		$queryshare->execute();
+		$rowshare= $queryshare->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 
 
 
@@ -168,7 +180,7 @@ function question($id){
  function subcategory_id($id){
 	  global $conn;
 		
-		$sql="select * from subcategory where id_category={$id} ";
+		$sql="select * from subcategory where id_category={$id}  ";
 		$query=$conn->prepare($sql);
 		$query->execute();
 		$row= $query->fetchAll(PDO::FETCH_ASSOC);
@@ -197,6 +209,16 @@ function question($id){
 		
     return $row;
 		}
+function topic_idcourse1($id){
+	  global $conn;
+		
+		$sql="select * from topic where id_course={$id} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetch(PDO::FETCH_ASSOC);
+		
+    return $row;
+		}
 
 	function course($id){
 	  global $conn;
@@ -219,6 +241,29 @@ function question($id){
 		
     return $row;
 }
+
+	function lesson_idtopic($id){
+	  global $conn;
+		
+		$sql="select * from lesson where id_topic={$id} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetchAll(PDO::FETCH_ASSOC);
+		
+    return $row;
+}
+
+	function lesson_idtopic1($id){
+	  global $conn;
+		
+		$sql="select * from lesson where id_topic={$id} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetch(PDO::FETCH_ASSOC);
+		
+    return $row;
+}
+
 	function teacher($id){
 	  global $conn;
 		
@@ -230,9 +275,61 @@ function question($id){
     return $row;
 }
 
+	function comment($id){
+	  global $conn;
+		
+		$sql="select * from comment where id_comment={$id} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetch(PDO::FETCH_ASSOC);
+		
+    return $row;
+}
+
+	function comment_idcourse($id){
+	  global $conn;
+		
+		$sql="select * from comment where id_course={$id} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetchAll(PDO::FETCH_ASSOC);
+		
+    return $row;
+}
+
+	function share($id){
+	  global $conn;
+		
+		$sql="select * from share where id_share={$id} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetch(PDO::FETCH_ASSOC);
+		
+    return $row;
+}
+function slide_advert($id){
+	  global $conn;
+		
+		$sql="select * from slide_advert where id={$id} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetch(PDO::FETCH_ASSOC);
+		
+    return $row;
+		}
 
 
 
+ function result_test($id){
+	  global $conn;
+		
+		$sql="select * from result_test where id_result={$id} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetch(PDO::FETCH_ASSOC);
+		
+    return $row;
+		}
 
 
 

@@ -13,7 +13,7 @@
 	<script src="../public/js/jquery-3.4.1.slim.min.js"></script>
 	<script src="../public/js/popper.min.js"></script>
 	<script src="../public/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../public/ckeditor/ckeditor.js"></script>
+	<script src="../public/ckeditor/ckeditor.js"></script>
 </head>
 
 <?php 
@@ -29,11 +29,18 @@ if (isset($_POST['tenkhsua'])) {
 	// $giakhsua=$_POST['giakhsua'];
 	$idmonkhsua=$_POST['idmonkhsua'];
 	$idteacherkhsua=$_POST['idteacherkhsua'];
+	if ($anhkhsua=="") {
 
-	$spldoi="UPDATE course SET name_course='$tenkhsua' ,image='$anhkhsua',infomation='$infokhsua',id_subcategory='$idmonkhsua',id_teacher='$idteacherkhsua'
+		$spldoi="UPDATE course SET name_course='$tenkhsua',infomation='$infokhsua',id_subcategory='$idmonkhsua',id_teacher='$idteacherkhsua'
 	WHERE id_course='$idkhoahoc' ";
 	$conn->exec($spldoi);
 
+		
+	}else{
+	$spldoi="UPDATE course SET name_course='$tenkhsua' ,image='$anhkhsua',infomation='$infokhsua',id_subcategory='$idmonkhsua',id_teacher='$idteacherkhsua'
+	WHERE id_course='$idkhoahoc' ";
+	$conn->exec($spldoi);
+	}
 
 }
 
@@ -106,8 +113,8 @@ if (isset($_POST['tenkhthem'])) {
 
 								Ảnh :</br>
 							<!-- 	Giá :</br> -->
-								ID MÔN :</br>
-								ID giáo viên :</br>
+								MÔN :</br>
+								Giáo viên :</br>
 							Thông tin:</br>
 							</p>
 							</div>
@@ -122,12 +129,29 @@ if (isset($_POST['tenkhthem'])) {
 								<p>
 									<select name="idmonkhsua" class="form-control">
 								 <?php foreach ($rowsubcategory as $value){ ?>
-								 	<option value="<?php echo $value['id_subcategory'] ?>"><?php echo $value['name_subcategory'].'-',category($value['id_category'])['name_category'] ?></option>
+								 	<option value="<?php echo $value['id_subcategory'] ?>" <?php if ($value['id_subcategory']==course($idkhoahoc)['id_subcategory']){echo 'selected';} ?>
+								 		
+								 	>
+								 		<?php echo $value['name_subcategory'].'-',category($value['id_category'])['name_category'] ?></option>
 								 <?php } ?>
 									
 									</select></p>
-								<p><input type="text" class="form-control" name="idteacherkhsua"  value="2"></p>
-								<p><textarea id="editor1"  type="text" rows="5"  class="form-control" name="infokhsua">
+								<p>
+									<?php $idteacher=course($idkhoahoc)['id_teacher']; ?>
+										<select name="idteacherkhsua" class="form-control">
+									<?php foreach ($rowteacher as $value){ ?>
+								
+										<option value="<?php echo $value['id_teacher']; ?>" <?php if ($value['id_teacher']==$idteacher) {
+											echo 'selected';
+										} ?>><?php echo $value['name'].' - '.$value['specialize'] ?></option>
+									
+								<?php  }?>
+										</select>
+								</p>
+
+
+
+								<p><textarea  type="text" rows="5"  class="form-control" name="infokhsua">
 									<?php echo course($idkhoahoc)['infomation'] ?>
 								</textarea></p>
 
@@ -137,7 +161,7 @@ if (isset($_POST['tenkhthem'])) {
 							</div>
 		<script>
  
-           CKEDITOR.replace( 'editor1' );
+           CKEDITOR.replace('editor1');
        </script>
  
 							<div class="col-md-5">
@@ -197,9 +221,55 @@ if (isset($_POST['tenkhthem'])) {
 						    <input type="file" name="anhkhthem" class="form-control">
 						 </div>
 
-						   <div class="input-group mb-3" style="margin-top: 8px">
+
+						  <div class="input-group mb-3" style="margin-top: 8px">
 						     <div class="input-group-prepend">
-						       <span class="input-group-text">ID môn</span>
+						       <span class="input-group-text">Lớp</span>
+						    </div>
+					              <?php
+                   
+					            $sql = "SELECT * FROM category ";
+					            $result = executeQuery($sql, true);
+					            ?>
+					            <?php
+					            echo "<select name='lopkhthem' class='form-control'  onchange=\"showCustomer(this.value)\">";
+					             echo "<option> Chọn lớp</option>";
+					            foreach ($result as $value) {
+					                echo "<option value = '" . $value['id_category'] . "'>";
+					                echo $value['name_category'];
+					                echo "</option>";
+					            }
+					            echo "</select>";
+					            ?>
+
+
+					 			      <div id="txtHint" style="width: 100%"></div>
+					            <script>
+					                function showCustomer(str) {
+					                    var xhttp;
+					                    if (str == "") {
+					                        document.getElementById("txtHint").innerHTML = "";
+					                        return;
+					                    }
+					                    xhttp = new XMLHttpRequest();
+					                    xhttp.onreadystatechange = function() {
+					                        if (this.readyState == 4 && this.status == 200) {
+					                            document.getElementById("txtHint").innerHTML = this.responseText;
+					                        }
+					                    };
+					                    xhttp.open("GET", "getcustomer.php?q=" + str, true);
+					                    xhttp.send();
+					                }
+					            </script>
+						 </div>
+
+
+
+
+
+				<!-- 		   <div class="input-group mb-3" style="margin-top: 8px">
+						     <div class="input-group-prepend">
+						       <span class="input-group-text">Môn</span>
 						    </div>
 	
 
@@ -211,7 +281,7 @@ if (isset($_POST['tenkhthem'])) {
 						    	
 						    </select>
 						 </div>
-
+ -->
 
 						   <div class="input-group mb-3" style="margin-top: 8px">
 						     <div class="input-group-prepend">
@@ -225,11 +295,11 @@ if (isset($_POST['tenkhthem'])) {
 						     <div class="input-group-prepend">
 						       <span class="input-group-text">Thông tin khóa học</span>
 						    </div>
-						      <textarea  id="editor1" name="infokhthem" rows="5"  class="form-control"></textarea>
+						      <textarea  name="infokhthem" rows="5"  class="form-control"></textarea>
 						 </div>
    <script>
  
-           CKEDITOR.replace( 'editor1' );
+           CKEDITOR.replace('editor1');
  
     </script> 
 						 <button type="submit" style="width:400px" class="btn btn-info">THÊM</button>

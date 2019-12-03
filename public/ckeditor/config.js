@@ -4,9 +4,6 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	config.language = 'en';
-enterMode : CKEDITOR.ENTER_BR;
-config.removePlugins = 'elementspath';
 	// Define changes to default configuration here.
 	// For complete reference see:
 	// https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html
@@ -34,7 +31,7 @@ config.removePlugins = 'elementspath';
 	config.removeButtons = 'Underline,Subscript,Superscript';
 
 	// Set the most common block elements.
-	config.format_tags = 'span;h1;h2;h3;pre';
+	config.format_tags = 'p;h1;h2;h3;pre';
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';

@@ -52,100 +52,84 @@
 
 </br>
 
+
+
+<?php 
+if (isset($_GET['idcate'])) {
+	$idcate=$_GET['idcate'];
+	
+}
+
+ ?>
 <body>
 	
 		<div class="container">
 			<div class="row">
 			<div class="col-md-2">
 			<ul>
-			  <li><a class="active" href="#home">Lớp 12</a></li>
-			  <li><a href="#news">Toán </a></li>
-			  <li><a href="#contact">Văn</a></li>
-			  <li><a href="#contact">Anh</a></li>
-			  <li><a href="#about">Lý</a></li>
-			  <li><a href="#about">Hóa</a></li>
-			  <li><a href="#about">Sinh</a></li>
+				<?php foreach ($rowcategory  as  $value){ ?>
+
+			  <li><a class="active" href="#home"><?php echo $value['name_category']; ?></a></li>
+			  <?php foreach (subcategory_id($value['id_category']) as $value){ ?>
+			  	<li><a href="danhsach.php?idcate=<?php echo $value['id_category']; ?>&&idmon=<?php echo $value['id_subcategory'] ?>"><?php echo $value['name_subcategory'] ?></a></li>
+			  <?php }} ?>
+			  	
+			
 
 
-			  <li><a class="active" href="#home">Lớp 11</a></li>
- 			  <li><a href="#news">Toán </a></li>
-			  <li><a href="#contact">Văn</a></li>
-			  <li><a href="#contact">Anh</a></li>
-			  <li><a href="#about">Lý</a></li>
-			  <li><a href="#about">Hóa</a></li>
-			  <li><a href="#about">Sinh</a></li>
-
-
-
-			    <li><a class="active" href="#home">Lớp 10</a></li>
-
-			  <li><a href="#news">Toán </a></li>
-			  <li><a href="#contact">Văn</a></li>
-			  <li><a href="#contact">Anh</a></li>
-			  <li><a href="#about">Lý</a></li>
-			  <li><a href="#about">Hóa</a></li>
-			  <li><a href="#about">Sinh</a></li>
+	
 
 			</ul>
 			</div>
 
+<?php if ((isset($idcate))&&(!isset($_POST['lopsreach']))){?>
+		<?php 
+				if (isset($_GET['idmon'])) {
+					$idmon=$_GET['idmon'];
+					
+				}else {
+						$sql="select * from subcategory where id_category='$idcate' ";
+						$query=$conn->prepare($sql);
+						$query->execute();
+						$row= $query->fetch(PDO::FETCH_ASSOC);
+						$idmon=$row['id_subcategory'];
+				}
 
-			<div class="col-md-9"  style="background: none;margin-left: 25px">
-					<img src="image/5.jpg" style="width:100%;height:200px">
+			$sqldanhsach1="select * from course where id_subcategory='$idmon' ";
+			$querydanhsach=$conn->prepare($sqldanhsach1);
+			$querydanhsach->execute();
+			$rowdanhsach1= $querydanhsach->fetchAll(PDO::FETCH_ASSOC);
 
+		
+		 ?>
+		
+
+	
+
+	<div class="col-md-9"  style="background: none;margin-left: 25px">
+			<img src="public/images/category/<?php echo category($idcate)['image'] ?>" style="width:100%;height:200px">
+			<!-- Tên tìn kiếm -->
 			<div class="hang1a">
-				<p style="margin-left: 10px;font-weight: bold;font-size: 17px;border-bottom: 2px solid gold;width:200px">Lớp 12 -> Toán</p>
+				<p style="margin-left: 10px;font-weight: bold;font-size: 17px;border-bottom: 2px solid gold;width:200px">
+				 			<?php echo category($idcate)['name_category'].' - '.subcategory($idmon)['name_subcategory'];?>
+				</p>
 				<!-- <a href=""  style="margin-top:-35px;margin-left:10px;    margin-right: 10px;font-weight: bold; float: right;font-size: 14px">Xem thêm</a> -->
-
-
-				<div class="box2">
-					<div class="boxtren2"><img src="image/1.jpg" style="height: 150px;width:100%"></div>
-					<div class="boxduoi2">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px;font-size: 14px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 35px;width: 35px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 70px;font-size: 14px">Nguyễn Thị Lanh</p>
-						<p style="margin-left:5px;float: left;font-weight: bold;color:red;font-size: 14px">800.000đ</p>
-						<a href="chitiet.php" style="float: right;margin-right: 10px;font-size: 14px"> Xem chi tiết </a>
-					</div>
-				</div>
-
+			
+			<?php foreach ($rowdanhsach1 as $value){ ?>
+				
+			
 
 				<div class="box2">
-					<div class="boxtren2"><img src="image/1.jpg" style="height: 150px;width:100%"></div>
+					<div class="boxtren2"><img src="public/images/course/<?php echo $value['image'] ?>" style="height: 150px;width:100%"></div>
 					<div class="boxduoi2">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px;font-size: 14px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 35px;width: 35px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 70px;font-size: 14px">Nguyễn Thị Lanh</p>
-						<p style="margin-left:5px;float: left;font-weight: bold;color:red;font-size: 14px">800.000đ</p>
-						<a href="chitiet.php" style="float: right;margin-right: 10px;font-size: 14px"> Xem chi tiết </a>
+					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px;font-size: 14px"><?php echo $value['name_course'] ?></p></a>
+						<img src="public/images/teacher/<?php echo teacher($value['id_teacher'])['image'] ?>" style="height: 35px;width: 35px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
+						<p style="margin-top: 25px;margin-left: 70px;font-size: 14px"><?php echo teacher($value['id_teacher'])['name'] ?></p>
+						<p style="margin-left:5px;float: left;font-weight: bold;color:red;font-size: 14px">Miễn Phí</p>
+						<a href="chitietkhoahoc.php?idkh=<?php echo $value['id_course'] ?>" style="float: right;margin-right: 10px;font-size: 14px"> Xem chi tiết </a>
 					</div>
 				</div>
-
-
-
-				<div class="box2">
-					<div class="boxtren2"><img src="image/1.jpg" style="height: 150px;width:100%"></div>
-					<div class="boxduoi2">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px;font-size: 14px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 35px;width: 35px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 70px;font-size: 14px">Nguyễn Thị Lanh</p>
-						<p style="margin-left:5px;float: left;font-weight: bold;color:red;font-size: 14px">800.000đ</p>
-						<a href="chitiet.php" style="float: right;margin-right: 10px;font-size: 14px"> Xem chi tiết </a>
-					</div>
-				</div>
-
-				<div class="box2">
-					<div class="boxtren2"><img src="image/1.jpg" style="height: 150px;width:100%"></div>
-					<div class="boxduoi2">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px;font-size: 14px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 35px;width: 35px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 70px;font-size: 14px">Nguyễn Thị Lanh</p>
-						<p style="margin-left:5px;float: left;font-weight: bold;color:red;font-size: 14px">800.000đ</p>
-						<a href="chitiet.php" style="float: right;margin-right: 10px;font-size: 14px"> Xem chi tiết </a>
-					</div>
-				</div>
-
-
+			<?php } ?>
 
 
 
@@ -153,6 +137,66 @@
 		
 			</div>
 		</div>
+<?php }else if(isset($_POST['lopsreach'])){
+			$lopsreach=$_POST['lopsreach'];
+			$tukhoasreach=$_POST['tukhoasreach'];
+			if (isset($_POST['monsreach'])) {
+				$monsreach=$_POST['monsreach'];
+				$namemon=subcategory($monsreach)['name_subcategory'];
+			}
+			
+
+			
+
+			if (($tukhoasreach=="")&&(isset($_POST['monsreach']))) {
+
+			$sqldanhsachsreach="select * from course where id_subcategory='$monsreach' ";
+			$querydanhsachsreach=$conn->prepare($sqldanhsachsreach);
+			$querydanhsachsreach->execute();
+			$rowsreach= $querydanhsachsreach->fetchAll(PDO::FETCH_ASSOC);
+
+				
+			}else if (is_string($tukhoasreach)) {
+		
+			$sqldanhsachsreach="select * from course where name_course like '%$tukhoasreach%' ";
+			$querydanhsachsreach=$conn->prepare($sqldanhsachsreach);
+			$querydanhsachsreach->execute();
+			$rowsreach= $querydanhsachsreach->fetchAll(PDO::FETCH_ASSOC);
+			}
+
+	?>
+
+
+		<div style="margin-left: 30px">
+	
+			<p style="font-weight: bold">Danh sách tìm kiếm</p>
+		
+
+		
+	
+		<?php foreach ($rowsreach as $value){ ?>
+			
+	
+			<div class="box2" style="margin-left: 10px">
+					<div class="boxtren2"><img src="public/images/course/<?php echo $value['image'] ?>" style="height: 150px;width:100%"></div>
+					<div class="boxduoi2">
+					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px;font-size: 14px"><?php echo $value['name_course'] ?></p></a>
+						<img src="public/images/teacher/<?php echo teacher($value['id_teacher'])['image'] ?>" style="height: 35px;width: 35px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
+						<p style="margin-top: 25px;margin-left: 70px;font-size: 14px"><?php echo teacher($value['id_teacher'])['name'] ?></p>
+						<p style="margin-left:5px;float: left;font-weight: bold;color:red;font-size: 14px">Miễn Phí</p>
+						<a href="chitietkhoahoc.php?idkh=<?php echo $value['id_course'] ?>" style="float: right;margin-right: 10px;font-size: 14px"> Xem chi tiết </a>
+					</div>
+				</div>
+
+			<?php  }?>
+			
+
+		<?php }  ?>
+
+</div>
+
+
+
 	</div>
 
 			<!--  Phải của trang chi tiêt -->
@@ -165,33 +209,11 @@
 
 
 
-		<div class="footer" style="border-top: 1px solid #ddd;width:1347px;margin: auto">
-				<div class="boxfoter" style="margin-left: 110px">
 
-				<p style="padding-top: 20px;font-weight: bold">VỀ CHÚNG TÔI</p>
-				<a href="" class="thea"><p style="font-size:14px">Giới thiệu</p></a>
-				<a href=""  class="thea"><p style="font-size:14px">Các giáo viên</p></a>
-				<a href=""  class="thea"><p style="font-size:14px">Điều khoản và chính sách</p></a>
-			</div>
-			<div class="boxfoter">
 
-				<p style="padding-top: 20px;font-weight: bold">HỖ TRỢ KHÁCH HÀNG</p>
-				<a href=""  class="thea"><p style="font-size:14px">Email: hotro@hocmai.vn</p></a>
-				<a href=""  class="thea"><p style="font-size:14px">SĐT : 0983298429</p></a>
-			</div>
-			<div class="boxfoter">
-			</br></br>
-				<img src="image/dangky.png" style="width:200px;">
-				<!-- <p style="font-size:14px;text-align: center">Đơn vị chủ quản: Công ty cổ phần công nghệ giáo dục Zuni
-GPKD: 0313282391 cấp ngày 01/06/2015 tại Sở Kế Hoạch và Đầu Tư TP Hồ Chí Minh
-Địa chỉ văn phòng: 457 Nguyễn Đình Chiểu, Phường 05, Quận 03, TP Hồ Chí Minh</p> -->
-			</div>
-			<div class="boxfoters">
-
-				<p style="padding-top: 20px;font-weight: bold">Ủng hộ chúng tôi</p>
-				<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FFeeling.wd%2F%3F__tn__%3DkCH-R%26eid%3DARBiqg9lqU0fx6nDx6VRI0aIUGuiXVitcManDeViRh0e64sNh5X96hjvQPjoK7hCLerbiY5dMmQ1cdJA%26hc_ref%3DART3Z04Ke5nI6oXON_J6cunxcXcpiR735d1vA1tRFKx_2blQv6yV2hH2ctGmLS_oBeE%26fref%3Dnf&tabs=300&width=300&height=170&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="300" height="170" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
-			</div>
-		</div>
+<!-- div.header2 -->
+    <?php include_once '_share/client/footer.php' ?>
+<!-- hết div.header2 -->
 
 
 </body>

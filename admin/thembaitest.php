@@ -118,7 +118,7 @@ if (isset($_POST['guisua'])) {
 							<?php } ?>
 						</select></p>
 								<p style="font-weight: bold">Câu hỏi :
-							<textarea name="cauhoithem" id="editor1"   rows="5" class="form-control"></textarea></p>
+							<textarea name="cauhoithem"   rows="5" class="form-control"></textarea></p>
 					
 						<div style="font-weight: bold">Image :
 						
@@ -217,7 +217,7 @@ if (isset($_POST['guisua'])) {
 							<?php } ?>
 						</select></p>
 						<p style="font-weight: bold">Câu hỏi :
-							<textarea name="cauhoisua" id="editor1"   rows="5" class="form-control"><?php echo question($idcausua)['name_question'];  ?></textarea></p>
+							<textarea name="cauhoisua"   rows="5" class="form-control"><?php echo question($idcausua)['name_question'];  ?></textarea></p>
 						<div style="font-weight: bold">Image :
 						
 

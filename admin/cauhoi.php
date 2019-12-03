@@ -12,33 +12,6 @@ require_once '../commont/connect.php';session_start();  ?>
 	<script src="../public/js/popper.min.js"></script>
 	<script src="../public/js/bootstrap.min.js"></script>
 </head>
-<?php      
-
-	$result="select count(id_question) as total from question" ;
-    $result2=$conn->prepare($result);
-    $result2->execute();
-    $rowrs=$result2->fetch(PDO::FETCH_ASSOC);
-
-    
-    $total_records =  $rowrs['total'];
-
-    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-    $limit = 10;
-
-
-    $total_page = ceil($total_records / $limit);
-
-    if ($current_page > $total_page){
-    $current_page = $total_page;
-    }
-    else if ($current_page < 1){
-        $current_page = 1;
-    }
-
-
-    $start = ($current_page - 1) * $limit;
-    ?>
-
 
 
 
@@ -92,37 +65,37 @@ if (isset($_GET['xoacauhoi'])) {
 
 
 
-//  PHÂN TRANG
+ // PHÂN TRANG
 
-    // $result="select count(id_question) as total from question" ;
-    // $result2=$conn->prepare($result);
-    // $result2->execute();
-    // $rowrs=$result2->fetch(PDO::FETCH_ASSOC);
+    $result="select count(id_question) as total from question" ;
+    $result2=$conn->prepare($result);
+    $result2->execute();
+    $rowrs=$result2->fetch(PDO::FETCH_ASSOC);
 
     
-    // $total_records =  $rowrs['total'];
+    $total_records =  $rowrs['total'];
 
-    // $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-    // $limit = 10;
-
-
-    // $total_page = ceil($total_records / $limit);
-
-    // if ($current_page > $total_page){
-    // $current_page = $total_page;
-    // }
-    // else if ($current_page < 1){
-    //     $current_page = 1;
-    // }
+    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $limit = 10;
 
 
-    // $start = ($current_page - 1) * $limit;
+    $total_page = ceil($total_records / $limit);
 
-    // $sqlquestion="select * from question limit $start,$limit";
-    // $qrquestion=$conn->prepare($sqlquestion);
-    // $qrquestion->execute();
-    // $rowquestion=$qrquestion->fetchAll(PDO::FETCH_ASSOC);
-    // 
+    if ($current_page > $total_page){
+    $current_page = $total_page;
+    }
+    else if ($current_page < 1){
+        $current_page = 1;
+    }
+
+
+    $start = ($current_page - 1) * $limit;
+
+    $sqlquestion="select * from question limit $start,$limit";
+    $qrquestion=$conn->prepare($sqlquestion);
+    $qrquestion->execute();
+    $rowquestion=$qrquestion->fetchAll(PDO::FETCH_ASSOC);
+    
 
  ?>
 <body>

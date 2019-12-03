@@ -1,4 +1,6 @@
-<?php require "./commont/connect.php" ?>	
+<?php require "./commont/connect.php" ;
+		
+?>	
 <?php session_start(); ?>
 
 <!DOCTYPE html>
@@ -51,10 +53,12 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 						<li class="dropdown">
 			      		 <a href="danhsach.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Khóa học <span class="caret"></span></a>
 			                <ul class="dropdown-menu">
-			                  <li><a href="danhsach.php">Lớp 12</a></li><br>
-			                  <li><a href="danhsach.php">Lớp 11</a></li><br>
-			                  <li><a href="danhsach.php">Lớp 10</a></li>
-			          
+			                	<?php foreach ($rowcategory as $value){ ?>
+			                		
+			                	
+			                  		<li><a href="danhsach.php?idcate=<?php echo $value['id_category'] ?>"><?php echo $value['name_category'] ?></a></li><br>
+			             
+			         			 <?php  }?>
 			                </ul>
              			 </li>
 
@@ -62,6 +66,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 
 						<a href="giaovien.php" class="thea"><li>Giáo viên</li></a>
 						<a href="luyende.php" class="thea"><li>Luyện đề</li></a>
+						<a href="chiase.php" class="thea"><li>Chia sẻ</li></a>
 					<!-- 	<a href="" class="thea"><li>Hỗ trợ</li></a> -->
 					
 					</ul>
@@ -112,29 +117,54 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 
 <!-- Hết đăng nhập -->
 
-		<div class="anhbia">
-				<h1 style="padding-top: 200px;margin-left: 100px " >Học mọi lúc mọi nơi</h1>
-				<form action="" method="get" accept-charset="utf-8" style="padding-top: 50px;margin-left: 100px">
+		<div class="anhbia" style="background-image: url('public/images/advert/<?php echo slide_advert(1)['image'] ?>');">
+				<h1 style="padding-top: 200px;margin-left: 100px " ><?php echo slide_advert(1)['title'] ?></h1>
+				<form action="danhsach.php" method="POST" accept-charset="utf-8" style="padding-top: 50px;margin-left: 100px">
 
-						<input type="text" name="" class="form-control" placeholder="Tên khóa học" style="width:400px;float: left;margin-left: 50px;">
+						<input type="text" name="tukhoasreach" class="form-control" placeholder="Tên khóa học" style="width:400px;float: left;margin-left: 50px;">
 				
-		
-						 <select class="form-control" style="width:250px;float: left;margin-left: 5px;">
-                          <option>Lớp 12</option>
-                          <option>Lớp 11</option>
-                          <option>Lớp 10</option>
-             			</select>
+		<!--  -->
+		<!--  -->
 
+                    <?php
+                   
+            $sql = "SELECT * FROM category ";
+            $result = executeQuery($sql, true);
+            ?>
+            <?php
+            echo "<select name='lopsreach' class='form-control' style='width:250px;float: left;margin-left: 5px;'  onchange=\"showCustomer(this.value)\">";
+             echo "<option> Chọn lớp</option>";
+            foreach ($result as $value) {
+                echo "<option value = '" . $value['id_category'] . "'>";
+                echo $value['name_category'];
+                echo "</option>";
+            }
+            echo "</select>";
+            ?>
+             		
 
-					 <select class="form-control" style="width:250px;float: left;margin-left: 5px;">
-                          <option>Toán</option>
-                          <option>Lý</option>
-                          <option>Hóa</option>
-                          <option>Văn</option>
-                          <option>Anh</option>
-             			</select>
+ 			      <div id="txtHint" style="width: 100%"></div>
+            <script>
+                function showCustomer(str) {
+                    var xhttp;
+                    if (str == "") {
+                        document.getElementById("txtHint").innerHTML = "";
+                        return;
+                    }
+                    xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("txtHint").innerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open("GET", "ajax/getcustomer.php?q=" + str, true);
+                    xhttp.send();
+                }
+            </script>
+			<!--  -->
+			<!--  -->
 			
-				<a href="danhsach.php"><button type="button" class="btn btn-primary" style="margin-left: 5px;">Xem các khóa học</button></a>
+					<button type="submit"  class="btn btn-primary" style="margin-left: 5px;">Xem các khóa học</button>
 				</form>
 
 	
@@ -170,56 +200,35 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 		<div class="body">
 			<!--  HÀNG 1 -->
 			<div class="hang1">
-				<p style="margin-left: 10px;font-weight: bold;font-size: 17px;border-bottom: 2px solid gold;width:200px">Khóa học nổi bật</p>
+				<p style="margin-left: 10px;font-weight: bold;font-size: 17px;border-bottom: 2px solid gold;width:200px">Khóa học mới nhất</p>
 				<a href=""  style="margin-top:-35px;margin-left:10px;    margin-right: 10px;font-weight: bold; float: right;font-size: 14px">Xem thêm</a>
+				<?php 
 
+		$sqlcourse="select * from course order by id_course desc limit 4";
+		$querycourse=$conn->prepare($sqlcourse);
+		$querycourse->execute();
+		$rowcourse=$querycourse->fetchAll(PDO::FETCH_ASSOC);
 
+				 ?>
+
+		
+			<?php foreach ($rowcourse as $value){ ?>
+			
+	
 				<div class="box">
-					<div class="boxtren"><img src="image/1.jpg" style="height: 170px;width:270px"></div>
+					<div class="boxtren"><img src="public/images/course/<?php echo $value['image'] ?>" style="height: 170px;width:270px"></div>
 					<div class="boxduoi">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 100px">Nguyễn Thị Lanh</p>
-						<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">800.000đ</p>
-						<a href="chitietkhoahoc.php" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
+					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">
+						<?php echo $value['name_course'] ?>
+					</p></a>
+						<img src="public/images/teacher/<?php echo teacher($value['id_teacher'])['image'] ?>" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
+						<p style="margin-top: 25px;margin-left: 100px"><?php echo teacher($value['id_teacher'])['name'] ?></p>
+						<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">Miễn Phí</p>
+						<a href="chitietkhoahoc.php?idkh=<?php echo $value['id_course'] ?>" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
 					</div>
 				</div>
-
-					<div class="box">
-					<div class="boxtren"><img src="image/1.jpg" style="height: 170px;width:270px"></div>
-					<div class="boxduoi">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 100px">Nguyễn Thị Lanh</p>
-						<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">800.000đ</p>
-						<a href="chitietkhoahoc.php" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
-					</div>
-				</div>
-
-
-					<div class="box">
-					<div class="boxtren"><img src="image/1.jpg" style="height: 170px;width:270px"></div>
-					<div class="boxduoi">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 100px">Nguyễn Thị Lanh</p>
-						<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">800.000đ</p>
-						<a href="chitietkhoahoc.php" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
-					</div>
-				</div>
-
-
-					<div class="box">
-					<div class="boxtren"><img src="image/1.jpg" style="height: 170px;width:270px"></div>
-					<div class="boxduoi">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 100px">Nguyễn Thị Lanh</p>
-						<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">800.000đ</p>
-						<a href="chitietkhoahoc.php" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
-					</div>
-				</div>
-				
+			<?php  }?>
+			
 			</div>
 				<!-- HẾT HÀNG 1 -->
 	
@@ -228,65 +237,53 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 
 				<a href="" style="margin-top:-35px;margin-left:10px;    margin-right: 10px;font-weight: bold; float: right;font-size: 14px">Xem thêm</a>
 
+				<?php 
+						$sqlarraysub="select id_subcategory from subcategory where id_category=2 limit 4";
+						$queryarraysub=$conn->prepare($sqlarraysub);
+						$queryarraysub->execute();
+						$rowsub=$queryarraysub->fetchAll(PDO::FETCH_ASSOC);
 
-				<div class="box">
-					<div class="boxtren"><img src="image/1.jpg" style="height: 170px;width:270px"></div>
-					<div class="boxduoi">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 100px">Nguyễn Thị Lanh</p>
-						<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">800.000đ</p>
-						<a href="chitietkhoahoc.php" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
-					</div>
-				</div>
+					foreach ($rowsub as $value) {
+						$idsub=$value['id_subcategory'];
+						$sqlcourse12="select * from course where id_subcategory=$idsub order by id_course desc limit 1";
+						$querycourse12=$conn->prepare($sqlcourse12);
+						$querycourse12->execute();
+						$rowcourse12=$querycourse12->fetchAll(PDO::FETCH_ASSOC);
+				
+							 ?>
+				<?php foreach ($rowcourse12 as $value){ ?>
+							
+						
 
-					<div class="box">
-					<div class="boxtren"><img src="image/1.jpg" style="height: 170px;width:270px"></div>
-					<div class="boxduoi">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 100px">Nguyễn Thị Lanh</p>
-						<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">800.000đ</p>
-						<a href="chitietkhoahoc.php" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
-					</div>
-				</div>
+						<div class="box">
+							<div class="boxtren"><img src="public/images/course/<?php echo $value['image'] ?>" style="height: 170px;width:270px"></div>
+							<div class="boxduoi">
+							<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">
+								<?php echo $value['name_course'] ?>
+							</p></a>
+								<img src="public/images/course/<?php echo $value['image'] ?>" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
+								<p style="margin-top: 25px;margin-left: 100px">Nguyễn Thị Lanh</p>
+								<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">800.000đ</p>
+								<a href="chitietkhoahoc.php?idkh=<?php echo $value['id_course'] ?>" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
+							</div>
+						</div>
+				<?php }} ?>		
 
-
-					<div class="box">
-					<div class="boxtren"><img src="image/1.jpg" style="height: 170px;width:270px"></div>
-					<div class="boxduoi">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 100px">Nguyễn Thị Lanh</p>
-						<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">800.000đ</p>
-						<a href="chitietkhoahoc.php" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
-					</div>
-				</div>
-
-
-					<div class="box">
-					<div class="boxtren"><img src="image/1.jpg" style="height: 170px;width:270px"></div>
-					<div class="boxduoi">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">Cấp Tốc Về Đích môn Toán 2020</p></a>
-						<img src="image/2.jpg" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-						<p style="margin-top: 25px;margin-left: 100px">Nguyễn Thị Lanh</p>
-						<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">800.000đ</p>
-						<a href="chitietkhoahoc.php" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
-					</div>
-				</div>
 				
 				</div>
 				<!--  HẾT HÀNG 2 -->
 				<!--  HÀNG 2 LẦN 2 -->
 				<div class="hang2">
-					<img src="image/5.jpg" alt="" style="height: 350px;width:500px;float: left;border-radius: 10px">
+				<a href="<?php echo slide_advert(2)['link'] ?>"><img src="public/images/advert/<?php echo slide_advert(2)['image'] ?>" alt="" style="height: 350px;width:500px;float: left;border-radius: 10px"></a>
 					<div class="advertbig">
-						<img src="image/advert.png" class="advertsmall">
-						<img src="image/advert2.png" class="advertsmall" style="margin-top: 10px">
+						<a href="<?php echo slide_advert(3)['link'] ?>"><img src="public/images/advert/<?php echo slide_advert(3)['image'] ?>" class="advertsmall"></a>
+						<a href="<?php echo slide_advert(4)['link'] ?>"><img src="public/images/advert/<?php echo slide_advert(4)['image'] ?>" class="advertsmall" style="margin-top: 10px"></a>
 
 					</div>
 					<!--  <div style="float: left;width:200px;height:50px;background: black">Kết nối</div> -->
-						<div class="topic"></div>
+						<div class="topic">
+							<a href="<?php echo slide_advert(5)['link'] ?>"><img src="public/images/advert/<?php echo slide_advert(5)['image'] ?>" style="width:100%;height:350px" ></a>
+						</div>
 					
 
 				</div>
@@ -294,37 +291,37 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 
 				<div class="hang3">
 					<p style="text-align: center;font-size: 22px;padding-top: 10px;font-weight: bold">Giáo viên </p>
+
+					<?php 
+						$sqlteacher2="select * from teacher order by rand() limit 4 ";
+						$queryteacher2=$conn->prepare($sqlteacher2);
+						$queryteacher2->execute();
+						$rowteacher2= $queryteacher2->fetchAll(PDO::FETCH_ASSOC);
+					 ?>
+
+					 <?php foreach ($rowteacher2 as $value){ ?>
+					 	
+					 
 					<div class="cotgiaovien">
-						<img src="image/2.jpg" style="height: 250px;background: gold;width:100%">
+						<img src="public/images/teacher/<?php echo teacher($value['id_teacher'])['image']; ?>" style="height: 250px;background: gold;width:100%">
 						<div class="cotgiaoviendown">
-							<a href="" class="thea"><p style="text-align: center;">Cô Nguyễn Thi Lanh</p></a>
-							<p style="font-size: 13px;margin-left: 5px;text-align: center;">Tốt nghiệp loại giỏi trường Sư phạm, kinh nghiệm dạy môn Toán hơn 20 năm, cô ghi dấu ấn với các thế hệ HS bằng lối giảng tỉ mỉ, dễ hiểu phù hợp với mọi đối tượng.</p>
+							<a href="" class="thea"><p style="text-align: center;margin-top: 10px;font-weight: bold">
+								<?php if ((teacher($value['id_teacher'])['gender'])==2){echo 'Cô';}
+							else{echo 'Thầy';} ?>
+								<?php echo teacher($value['id_teacher'])['name'] ?></p></a>
+							<div style="font-size: 13px;margin-left: 5px;text-align: center;">
+							<?php  $thongtin=substr(teacher($value['id_teacher'])['infomation'],0,300) ?>
+						<?php echo  $thongtin.'...</br>'; ?>
+				
+							</div>
+
 						</div>
 					</div>
-						<div class="cotgiaovien">
-						<img src="image/2.jpg" style="height: 250px;background: gold;width:100%">
-						<div class="cotgiaoviendown">
-							<a href="" class="thea"><p style="text-align: center;">Cô Nguyễn Thi Lanh</p></a>
-							<p style="font-size: 13px;margin-left: 5px;text-align: center;">Tốt nghiệp loại giỏi trường Sư phạm, kinh nghiệm dạy môn Toán hơn 20 năm, cô ghi dấu ấn với các thế hệ HS bằng lối giảng tỉ mỉ, dễ hiểu phù hợp với mọi đối tượng.</p>
-						</div>
-					</div>
+
+					<?php } ?>
 					
-						<div class="cotgiaovien">
-						<img src="image/2.jpg" style="height: 250px;background: gold;width:100%">
-						<div class="cotgiaoviendown">
-							<a href="" class="thea"><p style="text-align: center;">Cô Nguyễn Thi Lanh</p></a>
-							<p style="font-size: 13px;margin-left: 5px;text-align: center;">Tốt nghiệp loại giỏi trường Sư phạm, kinh nghiệm dạy môn Toán hơn 20 năm, cô ghi dấu ấn với các thế hệ HS bằng lối giảng tỉ mỉ, dễ hiểu phù hợp với mọi đối tượng.</p>
-						</div>
-					</div>
+			
 
-
-						<div class="cotgiaovien">
-						<img src="image/2.jpg" style="height: 250px;background: gold;width:100%">
-						<div class="cotgiaoviendown">
-							<a href="" class="thea"><p style="text-align: center;">Cô Nguyễn Thi Lanh</p></a>
-							<p style="font-size: 13px;margin-left: 5px;text-align: center;">Tốt nghiệp loại giỏi trường Sư phạm, kinh nghiệm dạy môn Toán hơn 20 năm, cô ghi dấu ấn với các thế hệ HS bằng lối giảng tỉ mỉ, dễ hiểu phù hợp với mọi đối tượng.</p>
-						</div>
-					</div>
 
 
 
@@ -340,43 +337,37 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png"/></a>
 			<div class="hangchiase">
 				<p style="font-weight: bold;text-align: center;font-size:22px;padding-top: 10px">Học sinh chia sẻ</p>
 
+
+				<?php 
+
+		
+				$sqlchiase_="select * from share where status='2' order by id_share desc limit 3 ";
+				$qrchiase=$conn->prepare($sqlchiase_);
+				$qrchiase->execute();
+				$rowcs= $qrchiase->fetchAll(PDO::FETCH_ASSOC);
+		
+
+
+				 ?>
+				<?php foreach ($rowcs as $value){ 
+					$iduser=$value['id_user']
+					?>
+					
+		
 				<div class="boxchiase">
-					<div class="chiaseup"><img src="image/2.jpg" style="width:120px;height:120px;border-radius: 100%;text-align: center;margin-left: 115px">
+					<div class="chiaseup"><img src="public/images/user/<?php echo users($iduser)['image'] ?>" style="width:120px;height:120px;border-radius: 100%;text-align: center;margin-left: 115px">
 					</div>
 					<div class="chiasedown">
-						<p style="text-align: center;font-size: 17px;font-weight: bold">Nguyễn Thi My</p>
+						<p style="text-align: center;font-size: 17px;font-weight: bold"><?php echo users($iduser)['name'] ?></p>
 						<p style="margin-left: 35px;text-align: center;width:280px">
 							<span style="font-size: 20px">"</span>
-							Các khóa học trên website rất bổ ích, giúp em có nhiều thêm kỹ năng sống làm việc. Em cảm thấy rất tự tin và luôn tràn đầy năng lượng
+						<?php echo $value['content']; ?>
 							<span style="font-size: 20px">"</span>
 						</p>
 					</div>
 				</div>
-					<div class="boxchiase">
-					<div class="chiaseup"><img src="image/2.jpg" style="width:120px;height:120px;border-radius: 100%;text-align: center;margin-left: 115px">
-					</div>
-					<div class="chiasedown">
-						<p style="text-align: center;font-size: 17px;font-weight: bold">Nguyễn Thi My</p>
-						<p style="margin-left: 35px;text-align: center;width:280px">
-							<span style="font-size: 20px">"</span>
-							Các khóa học trên website rất bổ ích, giúp em có nhiều thêm kỹ năng sống làm việc. Em cảm thấy rất tự tin và luôn tràn đầy năng lượng
-							<span style="font-size: 20px">"</span>
-						</p>
-					</div>
-				</div>
-					<div class="boxchiase">
-					<div class="chiaseup"><img src="image/2.jpg" style="width:120px;height:120px;border-radius: 100%;text-align: center;margin-left: 115px">
-					</div>
-					<div class="chiasedown">
-						<p style="text-align: center;font-size: 17px;font-weight: bold">Nguyễn Thi My</p>
-						<p style="margin-left: 35px;text-align: center;width:280px">
-							<span style="font-size: 20px">"</span>
-							Các khóa học trên website rất bổ ích, giúp em có nhiều thêm kỹ năng sống làm việc. Em cảm thấy rất tự tin và luôn tràn đầy năng lượng
-							<span style="font-size: 20px">"</span>
-						</p>
-					</div>
-				</div>
-
+					
+					<?php } ?>
 
 
 
@@ -385,33 +376,9 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png"/></a>
 
 
 		</div>
-		<div class="footer" style="border-top: 1px solid #ddd">
-				<div class="boxfoter" style="margin-left: 110px">
-
-				<p style="padding-top: 20px;font-weight: bold">VỀ CHÚNG TÔI</p>
-				<a href="" class="thea"><p style="font-size:14px">Giới thiệu</p></a>
-				<a href=""  class="thea"><p style="font-size:14px">Các giáo viên</p></a>
-				<a href=""  class="thea"><p style="font-size:14px">Điều khoản và chính sách</p></a>
-			</div>
-			<div class="boxfoter">
-
-				<p style="padding-top: 20px;font-weight: bold">HỖ TRỢ KHÁCH HÀNG</p>
-				<a href=""  class="thea"><p style="font-size:14px">Email: hotro@hocmai.vn</p></a>
-				<a href=""  class="thea"><p style="font-size:14px">SĐT : 0983298429</p></a>
-			</div>
-			<div class="boxfoter">
-			</br></br>
-				<img src="image/dangky.png" style="width:200px;">
-				<!-- <p style="font-size:14px;text-align: center">Đơn vị chủ quản: Công ty cổ phần công nghệ giáo dục Zuni
-GPKD: 0313282391 cấp ngày 01/06/2015 tại Sở Kế Hoạch và Đầu Tư TP Hồ Chí Minh
-Địa chỉ văn phòng: 457 Nguyễn Đình Chiểu, Phường 05, Quận 03, TP Hồ Chí Minh</p> -->
-			</div>
-			<div class="boxfoters">
-
-				<p style="padding-top: 20px;font-weight: bold">Ủng hộ chúng tôi</p>
-				<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FFeeling.wd%2F%3F__tn__%3DkCH-R%26eid%3DARBiqg9lqU0fx6nDx6VRI0aIUGuiXVitcManDeViRh0e64sNh5X96hjvQPjoK7hCLerbiY5dMmQ1cdJA%26hc_ref%3DART3Z04Ke5nI6oXON_J6cunxcXcpiR735d1vA1tRFKx_2blQv6yV2hH2ctGmLS_oBeE%26fref%3Dnf&tabs=300&width=300&height=170&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="300" height="170" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
-			</div>
-		</div>
+<!-- div.header2 -->
+    <?php include_once '_share/client/footer.php' ?>
+<!-- hết div.header2 -->
 	</div>
 </body>
 </html>

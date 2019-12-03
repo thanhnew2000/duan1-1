@@ -17,7 +17,7 @@
 			</div>
 			<div style="width: 210px;height:500px;font-size: 14px;color: #b8c7ce">
 				<div class="boxmenu">
-					<a href="danhmuc.php?id_dm=2" class="thea5"><p>Danh mục</p></a>
+					<a href="danhmuc.php" class="thea5"><p>Lớp 	</p></a>
 				</div>
 				
 				<div class="boxmenu">
@@ -41,6 +41,16 @@
 				</div>
 				<div class="boxmenu">
 					<a href="giaovien.php" class="thea5"><p>Giáo viên</p></a>
+				</div>
+			
+				<div class="boxmenu">
+					<a href="binhluan.php" class="thea5"><p>Bình luận</p></a>
+				</div>
+				<div class="boxmenu">
+					<a href="chiase.php" class="thea5"><p>Chia sẻ</p></a>
+				</div>
+					<div class="boxmenu">
+					<a href="slide.php" class="thea5"><p>Slide_Quảng cáo</p></a>
 				</div>
 			
 				

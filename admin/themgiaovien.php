@@ -142,7 +142,7 @@ if (isset($_POST['tengvthem'])) {
 
 
 							
-							<textarea name="infogvthem" id="editor1"  class="form-control"></textarea>
+							<textarea name="infogvthem" rows="10"  class="form-control"></textarea>
 							<button type="submit" class="btn btn-info" style="width: 100%" >THÊM GIÁO VIÊN</button>
 							<a href="" class="btn btn-info" style="width: 100%" >QUAY VỀ</a>
 					</form>

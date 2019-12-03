@@ -4,6 +4,9 @@
 if (isset($_GET['idde'])){
 	$idde=$_GET['idde'];
 }
+if (!isset($_SESSION['account'])) {
+	header("location: dangnhap.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -235,7 +238,28 @@ var myVar = setInterval(clickFunction, <?php echo $time*60000 ?>);
 		</div>
 			</form>
 
-<?php }elseif (isset($_POST['hoanthanh'])) {?>
+<!--  ĐÃ HOÀN THÀNH -->
+
+<?php }elseif (isset($_POST['hoanthanh'])) {
+			$diem=ROUND($diem1cau*$sodung,1);
+			$iduser=$_SESSION['account']['id'];
+
+			$sqlluuketqua="INSERT INTO result_test VALUES ('','$iduser','$idtest','$diem')";
+  			$conn->exec($sqlluuketqua);
+
+	?>
+
+<!--  Đã hoàn thành lưu điểm vào đb -->
+	
+
+
+
+
+
+
+
+<!--  Hiện kết quả ra màn hinh -->
+
 	
 		<div style="width:500px;height:210px;background: white;margin: auto;margin-top: 10px" >
 			<p style="text-align: center;font-weight: bold;padding-top: 10px;font-size: 20px">KẾT QUẢ</p>
