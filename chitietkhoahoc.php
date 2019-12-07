@@ -24,6 +24,7 @@
 
 	$idkh=$_GET['idkh'];
 	$idgiaovien=course($idkh)['id_teacher'];
+	$idsub=course($idkh)['id_subcategory'];
 
 
 	
@@ -109,7 +110,7 @@
 
 
 
-		<div class="gvtrangchitiet" style="margin-bottom: 50px">
+		<div style="margin-bottom: 50px;width: 100%;height: 300px;background: #f7f6f6">
 					<p style="text-align: center;font-size:20px;font-weight: bold">Giảng viên</p>
 
 					
@@ -117,7 +118,15 @@
 				<div style="width:390px;float: right;margin-right: 50px;margin-top: 20px">
 					<?php echo teacher($idgiaovien)['infomation'] ?>
 				</div>
-					<p style="margin-left: 20px;font-weight: bold">Cô <?php echo teacher($idgiaovien)['name'] ?></p>
+					<p style="margin-left: 20px;font-weight: bold">
+						<?php if (teacher($idgiaovien)['gender']==1) {
+							echo 'Thầy ';
+							
+						}else {
+							echo "Cô ";
+						} ?>
+
+					 <?php echo teacher($idgiaovien)['name'] ?></p>
 				</div>
 
 
@@ -149,13 +158,24 @@
 				<p style="font-weight: bold;border-bottom: 1px solid #dddddd">Khóa học tương tự</p>
 				<!-- Khóa tương tự -->
 
+				<?php 
+					$sqlcoursett="select * from course where id_subcategory='$idsub'  ";
+					$querycoursett=$conn->prepare($sqlcoursett);
+					$querycoursett->execute();
+					$rowcoursett= $querycoursett->fetchAll(PDO::FETCH_ASSOC);
+				 ?>
+				 <?php foreach ($rowcoursett as $value){?>
+				 	
+			
 				<div style="width:100%;height:130px;background: #e4ede4;margin-top: 12px;border-radius: 2%;box-shadow: 2px 2px 3px black">
-					<a href=""><img src="image/advert.png" style="width:150px;height:120px;float: left;margin-left: 10px;margin-top: 5px"></a>
-					<a href=""><p style="float: left; margin-left: 10px;font-size: 14px;height:80px;width:190px;font-weight: bold;">Tiếng Anh lớp 6 điêm 7-8 </p></a>
+					<a href="chitietkhoahoc.php?idkh=<?php echo $value['id_course']; ?>"><img src="public/images/course/<?php echo $value['image'] ?>" style="width:150px;height:120px;float: left;margin-left: 10px;margin-top: 5px"></a>
+					<a href="chitietkhoahoc.php?idkh=<?php echo $value['id_course']; ?>"><p style="float: left; margin-left: 10px;font-size: 14px;height:80px;width:190px;font-weight: bold;">
+						<?php echo $value['name_course']; ?>
+					</p></a>
 					<p style="color:red;font-size: 14px;padding-left: 10px"><span style="color: black;margin-left: 10px;">Học phí : </span>Miễn phí</p>
 
 				</div>
-
+				 <?php } ?>
 		
 				<!-- Tương tự -->
 

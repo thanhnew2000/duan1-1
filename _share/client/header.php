@@ -18,7 +18,7 @@
 						  </div>
 						</div>	
 		</div>
-			<div class="col-md-2"><a href="index.php"><img src="image/logo.png" style="width:100px;height:50px;margin-left: 50px"></a>
+			<div class="col-md-2"><a href="index.php"><img src="image/<?php echo $rowsetting['logo'] ?>" style="width:100px;height:50px;margin-left: 50px"></a>
 		</div>
 		<div class="col-md-4" style="background: none;">
 			<?php if (!isset($_SESSION['account'])){?>
@@ -37,7 +37,7 @@
 						  <div class="dropdown-menu">
 						    <a class="dropdown-item" href="thongtincanhan.php">Thông tin cá nhân</a>
 						    <?php if (($_SESSION['account']['role'])=='100') { ?>
-						    <a class="dropdown-item" href="admin/dethi.php">Trang quản trị</a>
+						    <a class="dropdown-item" href="admin/danhmuc.php">Trang quản trị</a>
 						    <?php } ?>
 						    <a class="dropdown-item" href="them.php?do=logout">Đăng xuất</a>
 

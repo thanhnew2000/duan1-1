@@ -8,7 +8,7 @@
 			
 
 			<div style="height:50px;width:220px;background: #198d9f;text-align: center;">
-				<img src="../image/logo.png" style="width:70px;">
+				<img src="../image/<?php echo $rowsetting['logo']; ?>" style="width:70px;">
 			</div>
 			<div class="ten">
 			</br>
@@ -52,6 +52,10 @@
 					<div class="boxmenu">
 					<a href="slide.php" class="thea5"><p>Slide_Quảng cáo</p></a>
 				</div>
+					<div class="boxmenu">
+					<a href="setting.php" class="thea5"><p>Setting</p></a>
+				</div>
+
 			
 				
 			<!-- 	<div class="boxmenu">

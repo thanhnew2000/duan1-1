@@ -285,9 +285,16 @@ if (isset($_POST['tenkhthem'])) {
 
 						   <div class="input-group mb-3" style="margin-top: 8px">
 						     <div class="input-group-prepend">
-						       <span class="input-group-text">ID giáo viên</span>
+						       <span class="input-group-text">Giáo viên</span>
 						    </div>
-						    <input type="text" name="idteacherkhthem" class="form-control">
+						  <!--   <input type="text" name="idteacherkhthem" class="form-control"> -->
+						    <select name="idteacherkhthem" class="form-control">
+						    	<option value="0">Chọn giáo viên</option>
+						    	
+						    	<?php foreach ($rowteacher as $value){ ?>
+						    	<option value="<?php echo $value['id_teacher'] ?>"><?php echo $value['name'].' - '.$value['specialize']?></option>
+						    	<?php } ?>
+						    </select>
 						 </div>
 
 

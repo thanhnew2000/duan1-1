@@ -15,13 +15,12 @@
 </head>
 
 <?php if (isset($_POST['tencn'])) {
-	$iduser=$_SESSION['account']['id'];
 	$tencn=$_POST['tencn'];
 	$birthcn=$_POST['birthcn'];
 	$gendercn=$_POST['gendercn'];
 	$addresscn=$_POST['addresscn'];
 
-	$sqlcn=" UPDATE users SET name='$tencn',birthday='$birthcn',gender='$gendercn',address='$addresscn' where id_user='$iduser' ";
+	$sqlcn=" UPDATE users SET name='$tencn',birthday='$birthcn',gender='$gendercn',address='$addresscn' ";
 	$conn->exec($sqlcn);
 	header('location: thongtincanhan.php');
 
@@ -55,7 +54,7 @@
 <?php if (isset($_POST['anhusermoi'])){
 	$iduser=$_SESSION['account']['id'];
 	 $anhusermoi=$_POST['anhusermoi'];
-	 $sqldoianh="UPDATE users SET image='$anhusermoi' where id_user='$iduser'";
+	 $sqldoianh="UPDATE users SET image='$anhusermoi' where id_user='$iduser' ";
 							$conn->exec($sqldoianh);
 					header('location: thongtincanhan.php');
 	
@@ -133,7 +132,7 @@
 					<tr>
 						<td><a href="thongtincanhan.php?doimatkhau">Đổi mật khẩu</a></td>
 					</tr>
-					<tr>
+						<tr>
 						<td><a href="ketquade.php?ketqua">Kết quả làm đề</a></td>
 					</tr>
 						<tr>
@@ -143,91 +142,60 @@
 			</table>
 			
 		</div>
-		<?php if (!isset($_GET['doimatkhau'])){ ?>
-			
+<?php if (isset($_GET['ketqua'])){ 
+		$iduser=$_SESSION['account']['id'];
+		$sqlresulttest="select * from result_test where id_user='$iduser' ";
+		$queryresult=$conn->prepare($sqlresulttest);
+		$queryresult->execute();
+		$rowresult= $queryresult->fetchAll(PDO::FETCH_ASSOC);
+		?>
+	
+	
+
+
 		
 
 		<div style="background: white;width:700px;height:500px;border-radius: 5%;margin-left: 50px">
 			<div class="bodyphaittcn">
-				<p style="text-align: center;font-weight: bold">Thông tin cá nhân </p>
+				<p style="text-align: center;font-weight: bold">Kết quả  làm đề</p>
 				<div>
-					<p style="font-size: 14px;font-weight: bold">Cập nhật thông tin cá nhân</p>
+				<!-- 	<p style="font-size: 14px;font-weight: bold">Cập nhật thông tin cá nhân</p> -->
 					<div class="row">
-
-						<div class="col-md-2" style="background: white">
-							<p>Họ và tên</p>
-							<p>Ngày sinh</p>
-							<p>Giới tính</p>
-							<p>SĐT</p>
-							<p>Email</p>
-							<p style="margin-top: 30px">Địa chỉ</p>
-						</div>
-						<div class="col-md-8" style="background: white">
-					<form method="POST">
-							<input  type="text" class="form-control" name="tencn" value="<?php echo users($_SESSION['account']['id'])['name']; ?>">
-							<input type="date" class="form-control" name="birthcn" value="<?php echo users($_SESSION['account']['id'])['birthday']; ?>">
-							<select name="gendercn" class="form-control" style="margin-top: 5px;">
-								<?php $iduser=$_SESSION['account']['id']; ?>
-								<?php if ((users($iduser)['gender'])=='1'){ ?>
-								<option value="1" selected="">Nam</option>
-								<option value="2">Nữ</option>
-								<?php }elseif ((users($iduser)['gender'])=='2') {  ?>
-								<option value="1">Nam</option>
-								<option value="2" selected="">Nữ</option>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Mã đề</th>
+									<th style="width:290px">Tên đề</th>
+									<th>Môn - Lớp</th>
+									<th>Điểm</th>
+							<!-- 		<th>Chức năng</th> -->
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach ($rowresult as $value){ $idresult=$value['id_result']; $idtest=$value['id_test'];
+									$idcategory=subcategory(test($idtest)['id_subcategory'])['id_category'];
+								 ?>
+									
+								
+								<tr style="font-size: 15px">
+									<td><?php echo $idtest ?></td>
+									<td><?php echo  test($idtest)['name_test'] ?></td>
+									<td><?php echo subcategory(test($idtest)['id_subcategory'])['name_subcategory'] .' - '.category($idcategory)['name_category'] ?></td>
+									<td><?php echo  $value['point'] ?></td>
+									<!-- <td><a href="" class="btn btn-danger">Xóa</a></td> -->
+								</tr>
 								<?php } ?>
-							
-							</select>
-							<input type="number" class="form-control" name="" disabled="" value="<?php echo users($_SESSION['account']['id'])['phone_numbers']; ?>">
-							<input type="email" class="form-control" name="" disabled value="<?php echo users($_SESSION['account']['id'])['email']; ?>">
-							<input type="text" class="form-control" name="addresscn"  value="<?php echo users($_SESSION['account']['id'])['address']; ?>">
-						</div>
-						<button type="submit" class="btn btn-primary" style="margin: auto;margin-top: 10px">Cập nhập thông tin</button>
-					</form>
+							</tbody>
+						</table>
+
+
 					</div>
 
 				</div>
 			</div>
 		</div>
+<?php } ?>
 
-	<?php }elseif (isset($_GET['doimatkhau'])) {?>
-
-				<div style="background: white;width:700px;height:350px;border-radius: 5%;margin-left: 50px">
-			<div class="bodyphaittcn" style="height:300px">
-				<p style="text-align: center;font-weight: bold">Đổi mật khẩu</p>
-				<div>
-				
-					<div class="row">
-
-						<div class="col-md-3" style="background: white">
-							<p>Mật khẩu cũ</p>
-							<p>Mật khẩu mới</p>
-							<p>Nhập lại mật khẩu mới</p>
-							
-						</div>
-						<div class="col-md-8" style="background: white">
-
-					<form action="" method="POST" accept-charset="utf-8">
-								
-								
-							
-							<input  type="password" class="form-control" name="mkcu">
-							<input  type="password" class="form-control" name="mkmoi1">
-							<input  type="password" class="form-control" name="mkmoi2">
-							
-								
-							
-						</div>
-						<button type="submit" class="btn btn-primary" style="margin: auto;margin-top: 10px">Đổi mật khẩu</button>
-
-						</form>
-
-					</div>
-					<?php if (isset($ketquadoimk)){ echo $ketquadoimk;}?>
-				</div>
-			</div>
-		</div>
-		
-	<?php } ?>
 
 
 	</div>

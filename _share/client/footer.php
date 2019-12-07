@@ -9,8 +9,8 @@
 			<div class="boxfoter">
 
 				<p style="padding-top: 20px;font-weight: bold">HỖ TRỢ KHÁCH HÀNG</p>
-				<a href=""  class="thea"><p style="font-size:14px">Email: hotro@hocmai.vn</p></a>
-				<a href=""  class="thea"><p style="font-size:14px">SĐT : 0983298429</p></a>
+				<a href=""  class="thea"><p style="font-size:14px">Email: <?php echo $rowsetting['email'] ?></p></a>
+				<a href=""  class="thea"><p style="font-size:14px">SĐT : 0<?php echo $rowsetting['sdt'] ?></p></a>
 			</div>
 			<div class="boxfoter">
 			</br></br>

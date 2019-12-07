@@ -1,5 +1,8 @@
 <?php require "./commont/connect.php" ?>	
-<?php session_start(); ?>
+<?php session_start();
+if (isset($_SESSION['account'])) {
+ 	$iduser=$_SESSION['account']['id'];
+ } ?>
 
 <!DOCTYPE html>
 <html>
@@ -13,53 +16,11 @@
 		<script src="public/js/popper.min.js"></script>
 		<script src="public/js/bootstrap.min.js"></script>
 </head>
-
-<?php if (isset($_POST['tencn'])) {
-	$tencn=$_POST['tencn'];
-	$birthcn=$_POST['birthcn'];
-	$gendercn=$_POST['gendercn'];
-	$addresscn=$_POST['addresscn'];
-
-	$sqlcn=" UPDATE users SET name='$tencn',birthday='$birthcn',gender='$gendercn',address='$addresscn' ";
-	$conn->exec($sqlcn);
-	header('location: thongtincanhan.php');
-
-} ?>
-
-<?php if (isset($_POST['mkcu'])) {
-	$mkcu=$_POST['mkcu'];
-	$mkmoi1=$_POST['mkmoi1'];
-	$mkmoi2=$_POST['mkmoi2'];
-	if (password_verify($mkcu,$_SESSION['account']['password'])) {
-		if ($mkmoi1==$mkmoi2) {
-							$iduser=$_SESSION['account']['id'];
-							$mahoamk=password_hash($mkmoi1, PASSWORD_DEFAULT);
-							$sqldoimk="UPDATE users SET password='$mahoamk' where id_user='$iduser' ";
-							$conn->exec($sqldoimk);
-							$ketquadoimk = 'ĐỔI MẬT KHẨU THÀNH CÔNG';
-			
-		}else  {
-			$ketquadoimk='Mật khẩu mới không trùng khớp';
-			
-		}
-	}else if (!password_verify($mkcu,$_SESSION['account']['password'])) {
-		$ketquadoimk='Mật khẩu cũ không đúng';
-		
-	}
-
-
+	<style type="text/css" media="screen">
 	
-} ?>
-
-<?php if (isset($_POST['anhusermoi'])){
-	$iduser=$_SESSION['account']['id'];
-	 $anhusermoi=$_POST['anhusermoi'];
-	 $sqldoianh="UPDATE users SET image='$anhusermoi' where id_user='$iduser' ";
-							$conn->exec($sqldoianh);
-					header('location: thongtincanhan.php');
-	
-} ?>
-
+.phantrang{width:30px;height: 30px;border:1px solid gray;line-height: 30px;background:white;}
+.phantrang:hover{color:#17a2b8;border:1px solid #17a2b8}
+</style>
 
 
 
@@ -118,7 +79,7 @@
 
 
 
-<div class="ttcnbody">
+<div class="container" style="margin-top: 50px;margin-bottom: 20px">
 	<div class="row">
 
 		<div style="background: white;width:300px;height:300px;text-align: center;border-radius: 5%;float: left;font-size: 14px">
@@ -133,18 +94,61 @@
 						<td><a href="thongtincanhan.php?doimatkhau">Đổi mật khẩu</a></td>
 					</tr>
 						<tr>
-						<td><a href="lichsu.php?ketqua">Kết quả làm đề</a></td>
+						<td><a href="ketquade.php?ketqua">Kết quả làm đề</a></td>
+					</tr>
+					<tr>
+						<td><a href="lichsu.php?ketqua">Lịch sử xem</a></td>
 					</tr>
 				</tbody>
 			</table>
 			
 		</div>
-<?php if (isset($_GET['ketqua'])){ 
-		$iduser=$_SESSION['account']['id'];
-		$sqlresulttest="select * from result_test where id_user='$iduser' ";
-		$queryresult=$conn->prepare($sqlresulttest);
-		$queryresult->execute();
-		$rowresult= $queryresult->fetchAll(PDO::FETCH_ASSOC);
+
+<?php 
+
+
+
+
+		    $result="select count(id_history) as total from history where id_user='$iduser'" ;
+		    $result2=$conn->prepare($result);
+		    $result2->execute();
+		    $rowrs=$result2->fetch(PDO::FETCH_ASSOC);
+
+		    
+		    $total_records =  $rowrs['total'];
+
+		    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+		    $limit = 10;
+
+
+		    $total_page = ceil($total_records / $limit);
+
+		    if ($current_page > $total_page){
+		    $current_page = $total_page;
+		    }
+		    else if ($current_page < 1){
+		        $current_page = 1;
+		    }
+
+
+		    $start = ($current_page - 1) * $limit;
+
+		    // $sqltopic="select * from history where id_user = limit $start,$limit";
+		    // $qrtopic=$conn->prepare($sqltopic);
+		    // $qrtopic->execute();
+		    // $rowtopic10=$qrtopic->fetchAll(PDO::FETCH_ASSOC);
+    
+
+
+		    
+
+
+				$sqlhistorytest="select * from history where id_user='$iduser' order by id_history desc limit $start,$limit ";
+				$queryhistory=$conn->prepare($sqlhistorytest);
+				$queryhistory->execute();
+				$rowrhistory= $queryhistory->fetchAll(PDO::FETCH_ASSOC);
+
+
 		?>
 	
 	
@@ -152,46 +156,72 @@
 
 		
 
-		<div style="background: white;width:700px;height:500px;border-radius: 5%;margin-left: 50px">
-			<div class="bodyphaittcn">
-				<p style="text-align: center;font-weight: bold">Kết quả  làm đề</p>
+		<div style="background: white;width:800px;border-radius: 5%;margin-left: 30px">
+	<!-- 		<div class="bodyphaittcn"> -->
+				<p style="text-align: center;font-weight: bold;margin-top: 10px">Lịch sử</p>
 				<div>
 				<!-- 	<p style="font-size: 14px;font-weight: bold">Cập nhật thông tin cá nhân</p> -->
-					<div class="row">
+					<div class="row" style="width:750px;margin-left: 20px;margin-bottom: 20px">
 						<table class="table">
 							<thead>
 								<tr>
-									<th>Mã đề</th>
-									<th style="width:290px">Tên đề</th>
-									<th>Môn - Lớp</th>
-									<th>Điểm</th>
+								<!-- 	<th>Mã lịch sử</th> -->
+								<!-- 	<th>Mã bài giảng</th> -->
+									<th style="width:200px">Tên bài giảng</th>
+									<th>Tên khóa học</th>
+									<th>Thời gian</th>
+									<th></th>
+							
 							<!-- 		<th>Chức năng</th> -->
 								</tr>
 							</thead>
 							<tbody>
-								<?php foreach ($rowresult as $value){ $idresult=$value['id_result']; $idtest=$value['id_test'];
-									$idcategory=subcategory(test($idtest)['id_subcategory'])['id_category'];
+								<?php foreach ($rowrhistory as $value)
+								{ $idhistory=$value['id_history']; $idlesson=$value['id_lesson'];
+								$idchuyende=lesson($idlesson)['id_topic'];
+								$idkhoahoc=topic($idchuyende)['id_course']
+
+									// $idcategory=subcategory(test($idtest)['id_subcategory'])['id_category'];
 								 ?>
 									
 								
 								<tr style="font-size: 15px">
-									<td><?php echo $idtest ?></td>
-									<td><?php echo  test($idtest)['name_test'] ?></td>
-									<td><?php echo subcategory(test($idtest)['id_subcategory'])['name_subcategory'] .' - '.category($idcategory)['name_category'] ?></td>
-									<td><?php echo  $value['point'] ?></td>
+							<!-- 		<td><?php echo $idhistory ?></td> -->
+									<!-- <td><?php echo $idlesson ?></td> -->
+									<td><?php echo  lesson($idlesson)['name_lesson']; ?></td>
+									<td><?php echo  course($idkhoahoc)['name_course']; ?></td>
+									<td><?php echo  $value['date_time']; ?></td>
+									<td><a href="baigiang2.php?idlesson=<?php echo $idlesson ?>&&idkh=<?php echo $idkhoahoc ?>">Xem</td>
+
+								
 									<!-- <td><a href="" class="btn btn-danger">Xóa</a></td> -->
 								</tr>
 								<?php } ?>
 							</tbody>
 						</table>
-
+  			  <?php if ($current_page > 1 && $total_page > 1){
+						           echo '<a href="lichsu.php?page='.($current_page-1).'"><button class="phantrang" type=""> < </button></a>  ';
+						               for ($i = 1; $i <= $total_page; $i++){
+						        // Nếu là trang hiện tại thì hiển thị thẻ span
+						        // ngược lại hiển thị thẻ a
+						        if ($i == $current_page){
+						            echo '<span><button class="phantrang" type="">'.$i.'</button></span> ';
+						        }
+						        else{
+						            echo '<a href="lichsu.php?page='.$i.'"><button class="phantrang" type="">'.$i.' </button></a> ';
+						        }
+						    }
+						} 
+						  if ($current_page < $total_page && $total_page > 1){
+						    echo '<a href="lichsu.php?page='.($current_page+1).'"><button class="phantrang"  type=""> > </button> </a> ';
+						}?>
 
 					</div>
 
 				</div>
 			</div>
 		</div>
-<?php } ?>
+
 
 
 

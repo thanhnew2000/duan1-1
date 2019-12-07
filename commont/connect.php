@@ -11,6 +11,8 @@ try
   $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
   $conn2= new PDO("mysql:host=$hostname;dbname=$database",$username,$password,$options);
   $conn2->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+  // $connhistory= new PDO("mysql:host=$hostname;dbname=$database",$username,$password,$options);
+  // $connhistory->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
 
   		$sqltaikhoan="select * from users ";
@@ -76,6 +78,10 @@ try
 		$queryshare->execute();
 		$rowshare= $queryshare->fetchAll(PDO::FETCH_ASSOC);
 
+		 $sqlsetting ="select * from setting ";
+		$querysetting =$conn->prepare($sqlsetting);
+		$querysetting->execute();
+		$rowsetting = $querysetting->fetch(PDO::FETCH_ASSOC);
 
 
 
@@ -331,7 +337,16 @@ function slide_advert($id){
     return $row;
 		}
 
-
+ function history($id){
+	  global $conn;
+		
+		$sql="select * from history where id_history={$id} ";
+		$query=$conn->prepare($sql);
+		$query->execute();
+		$row= $query->fetch(PDO::FETCH_ASSOC);
+		
+    return $row;
+		}
 
 
 

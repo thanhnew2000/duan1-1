@@ -241,12 +241,7 @@ var myVar = setInterval(clickFunction, <?php echo $time*60000 ?>);
 <!--  ĐÃ HOÀN THÀNH -->
 
 <?php }elseif (isset($_POST['hoanthanh'])) {
-			$diem=ROUND($diem1cau*$sodung,1);
-			$iduser=$_SESSION['account']['id'];
-
-			$sqlluuketqua="INSERT INTO result_test VALUES ('','$iduser','$idtest','$diem')";
-  			$conn->exec($sqlluuketqua);
-
+		
 	?>
 
 <!--  Đã hoàn thành lưu điểm vào đb -->
@@ -270,7 +265,12 @@ var myVar = setInterval(clickFunction, <?php echo $time*60000 ?>);
 		</div>
 		
 	
-<?php  } ?>
+<?php 	$diem=ROUND($diem1cau*$sodung,1);
+			$iduser=$_SESSION['account']['id'];
+
+			$sqlluuketqua="INSERT INTO result_test VALUES ('','$iduser','$idtest','$diem') ";
+  			$conn->exec($sqlluuketqua);
+ } ?>
 
 
 

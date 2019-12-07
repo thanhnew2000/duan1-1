@@ -23,7 +23,29 @@
 		$idlesson=$_GET['idlesson'];
 		$idkh=$_GET['idkh'];
 		
-	}  ?>
+		if (isset($_SESSION['account'])) {
+				$iduser=$_SESSION['account']['id'];
+				$time=date('Y-m-d H:i:s');
+
+				// $last_id = $connhistory->lastInsertId();
+				// $idlesson_kiemtra=history($last_id)['id_lesson'];
+				// $idlesson_user=history($last_id)['id_user'];
+
+
+				$sqlhistory="INSERT INTO history VALUES ('','$idlesson','$time','$iduser')";
+			  	$conn->exec($sqlhistory);
+				
+		
+				}
+			}
+
+ ?>
+
+
+
+
+
+
 
 
 
@@ -189,7 +211,7 @@ background-color: #aa66cc; }
 				<div style="background-image: url(image/Untitled-1.png);width:100%;height:200px;">
 	
 				<p style=" color: white;padding-top: 70px;margin-left: 50px;font-size: 21px">
-					<?php echo course($idkh)['name_course']; ?>
+					<?php echo course($idkh)['name_course']; ?>		<a href="chitietkhoahoc.php?idkh=<?php echo $idkh ?>" class="btn btn-info">Xem khóa học</a>
 				</p>
 				<p style=" color: white;padding-top: 20px;margin-left: 50px;font-size: 17px">
 					Giáo viên : <?php if ((teacher($idgiaovien)['gender']==1)){echo 'Thầy';}else {
@@ -205,7 +227,9 @@ background-color: #aa66cc; }
 
 
 		<div class="row" style="width:1350px">
-			<div class="col-md-10 offset-md-1" style="height:50px;line-height: 50px;font-size: 20px;margin-top: 10px;margin-bottom: 5px;background: #007bff;color:white"><?php echo lesson($idlesson)['name_lesson'] ?></div>
+			<div class="col-md-10 offset-md-1" style="height:50px;line-height: 50px;font-size: 20px;margin-top: 10px;margin-bottom: 5px;background: #007bff;color:white"><?php echo lesson($idlesson)['name_lesson'] ?>
+		
+			</div>
 			<div class="col-md-7 offset-md-1" style="background: none">
 					<iframe width="770" height="480" src="<?php echo lesson($idlesson)['video'] ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style=""></iframe>
 			</div>

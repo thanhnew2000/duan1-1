@@ -17,8 +17,17 @@
 	<?php 
 		 if (isset($_GET['idxoade'])) {
 		$idxoade=$_GET['idxoade'];
+
+		$sqlxoatest_question="DELETE FROM test_question WHERE id_test='$idxoade' " ;
+		$conn->exec($sqlxoatest_question);
+
 		$sqlxoade="DELETE FROM test WHERE id_test='$idxoade' " ;
 		$conn->exec($sqlxoade);
+
+
+
+		$sqlxoadetronghistory="DELETE FROM result_test WHERE id_test='$idxoade' " ;
+		$conn->exec($sqlxoadetronghistory);
 
 		header("location: dethi.php ");
 
@@ -48,7 +57,7 @@
 				<p style="font-size: 20px;width:1000px;height:50px;background: white;line-height: 50px;padding-left: 10px;border-radius: 10px;color: #17a2b8;font-weight: bold">QUẢN LÍ ĐỀ THI</p>
 
 				<div class="noidung">
-					<a href="themde.php" class="btn btn-info">Thêm đề thi </a>
+					<a href="themdetest.php" class="btn btn-info">Thêm đề thi </a>
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -76,22 +85,33 @@
 								$rowsocau= $querysocau->fetch(PDO::FETCH_ASSOC); 
 
 							// LẤY MÔN HỌC
-								$idquestion=test_question($idtest)['id_question'];
-								if (isset($idquestion)) {
-								$idmon=question($idquestion)['id_subcategory'];
-								$idcategory=subcategory($idmon)['id_category'];
+								// $idquestion=test_question($idtest)['id_question'];
+								// if (isset($idquestion)) {
+								$idmon=$value['id_subcategory'];
+								if ($idmon=="0") {
+									$idmon=0;
+								}else  {
+									$idcategory=subcategory($idmon)['id_category'];
+								} 
+									
+								
+								
 
-								}
+								// }
 								
 								
 								?>
 								
-								
+						<!-- 		category($idcategory)['name_category'] -->
 						
 							<tr>
 								<td><?php echo $value['id_test']; ?></td>
 								<td><?php echo $value['name_test']; ?></td>
-								<td><?php echo subcategory($idmon)['name_subcategory'].' - '.category($idcategory)['name_category']; ?></td>
+								<?php if(isset($idcategory)){  ?>
+								<td><?php echo subcategory($idmon)['name_subcategory'].' - '.category($idcategory)['name_category'] ?></td>
+								<?php }else {?>
+									<td></td>
+								<?php } ?>
 								<td><?php echo   $rowsocau['total'] ?></td>
 								<td>
 								<a href="suade.php?idsuade=<?php echo $value['id_test']; ?>"  class="btn btn-info">Chi tiết</a>

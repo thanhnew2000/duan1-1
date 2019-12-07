@@ -44,7 +44,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 		<div class="header">
 			<div class="headerchild">
 			<div class="row">
-			<a href="" class="thea"><div class="col-md-2" style="height: 80px;"><img src="image/logo.png" style="width:80px;margin-left: 40px;margin-top: 17px"></div></a>
+			<a href="" class="thea"><div class="col-md-2" style="height: 80px;"><img src="image/<?php echo $rowsetting['logo'] ?>" style="width:80px;margin-left: 40px;margin-top: 17px"></div></a>
 			<div class="col-md-10">
 				<div class="menu"  style="float: left;">
 					<ul>
@@ -86,7 +86,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 						  <div class="dropdown-menu">
 						    <a class="dropdown-item" href="thongtincanhan.php">Thông tin cá nhân</a>
 						      <?php if (($_SESSION['account']['role'])=='100') { ?>
-						    <a class="dropdown-item" href="admin/dethi.php">Trang quản trị</a>
+						    <a class="dropdown-item" href="admin/danhmuc.php">Trang quản trị</a>
 						    <?php } ?>
 						    <a class="dropdown-item" href="them.php?do=logout">Đăng xuất</a>
 						  </div>
@@ -201,7 +201,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 			<!--  HÀNG 1 -->
 			<div class="hang1">
 				<p style="margin-left: 10px;font-weight: bold;font-size: 17px;border-bottom: 2px solid gold;width:200px">Khóa học mới nhất</p>
-				<a href=""  style="margin-top:-35px;margin-left:10px;    margin-right: 10px;font-weight: bold; float: right;font-size: 14px">Xem thêm</a>
+		<!-- 		<a href=""  style="margin-top:-35px;margin-left:10px;    margin-right: 10px;font-weight: bold; float: right;font-size: 14px">Xem thêm</a> -->
 				<?php 
 
 		$sqlcourse="select * from course order by id_course desc limit 4";
@@ -235,7 +235,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 				<div class="hang2" style="margin-top: 35px">
 						<p style="margin-left: 10px;font-weight: bold;font-size: 17px;border-bottom: 2px solid gold;width:200px">Khóa học khối 12</p>
 
-				<a href="" style="margin-top:-35px;margin-left:10px;    margin-right: 10px;font-weight: bold; float: right;font-size: 14px">Xem thêm</a>
+				<a href="danhsach.php?idcate=2&&idmon=1" style="margin-top:-35px;margin-left:10px;    margin-right: 10px;font-weight: bold; float: right;font-size: 14px">Xem thêm</a>
 
 				<?php 
 						$sqlarraysub="select id_subcategory from subcategory where id_category=2 limit 4";
@@ -262,7 +262,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 								<?php echo $value['name_course'] ?>
 							</p></a>
 								<img src="public/images/course/<?php echo $value['image'] ?>" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
-								<p style="margin-top: 25px;margin-left: 100px">Nguyễn Thị Lanh</p>
+								<p style="margin-top: 25px;margin-left: 100px"><?php echo teacher($value['id_teacher'])['name'] ?></p>
 								<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">800.000đ</p>
 								<a href="chitietkhoahoc.php?idkh=<?php echo $value['id_course'] ?>" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
 							</div>
@@ -310,7 +310,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 							else{echo 'Thầy';} ?>
 								<?php echo teacher($value['id_teacher'])['name'] ?></p></a>
 							<div style="font-size: 13px;margin-left: 5px;text-align: center;">
-							<?php  $thongtin=substr(teacher($value['id_teacher'])['infomation'],0,300) ?>
+							<?php  $thongtin=substr(teacher($value['id_teacher'])['infomation'],0,215) ?>
 						<?php echo  $thongtin.'...</br>'; ?>
 				
 							</div>
@@ -350,15 +350,15 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png"/></a>
 
 				 ?>
 				<?php foreach ($rowcs as $value){ 
-					$iduser=$value['id_user']
+					$iduserchiase=$value['id_user'];
 					?>
 					
 		
 				<div class="boxchiase">
-					<div class="chiaseup"><img src="public/images/user/<?php echo users($iduser)['image'] ?>" style="width:120px;height:120px;border-radius: 100%;text-align: center;margin-left: 115px">
+					<div class="chiaseup"><img src="public/images/user/<?php echo users($iduserchiase)['image'] ?>" style="width:120px;height:120px;border-radius: 100%;text-align: center;margin-left: 115px">
 					</div>
 					<div class="chiasedown">
-						<p style="text-align: center;font-size: 17px;font-weight: bold"><?php echo users($iduser)['name'] ?></p>
+						<p style="text-align: center;font-size: 17px;font-weight: bold"><?php echo users($iduserchiase)['name']; ?></p>
 						<p style="margin-left: 35px;text-align: center;width:280px">
 							<span style="font-size: 20px">"</span>
 						<?php echo $value['content']; ?>
