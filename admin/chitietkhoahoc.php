@@ -23,9 +23,10 @@ if (isset($_GET['idkhoahoc'])) {
  } 
 
 if (isset($_POST['tenkhsua'])) {
+	upload('anhkhsua','../public/images/course/');
 	$tenkhsua=$_POST['tenkhsua'];
 	$infokhsua=$_POST['infokhsua'];
-	$anhkhsua=$_POST['anhkhsua'];
+	$anhkhsua=$_FILES['anhkhsua']['name'];
 	// $giakhsua=$_POST['giakhsua'];
 	$idmonkhsua=$_POST['idmonkhsua'];
 	$idteacherkhsua=$_POST['idteacherkhsua'];
@@ -60,9 +61,9 @@ if (isset($_GET['xoachuyende'])) {
 
 if (isset($_POST['tenkhthem'])) {
 
-
+	upload('anhkhthem','../public/images/course/');
 	$tenkhthem=$_POST['tenkhthem'];
-	$anhkhthem=$_POST['anhkhthem'];
+	$anhkhthem=$_FILES['anhkhthem']['name'];
 	$idmonkhthem=$_POST['idmonkhthem'];
 	$idteacherkhthem=$_POST['idteacherkhthem'];
 	$infokhthem=$_POST['infokhthem'];
@@ -120,7 +121,7 @@ if (isset($_POST['tenkhthem'])) {
 							</div>
 							<div class="col-md-4">
 							</br>
-						<form action="" method="POST" accept-charset="utf-8" style="margin-top: 10px">
+						<form action="" method="POST" accept-charset="utf-8" enctype="multipart/form-data" style="margin-top: 10px">
 								<p><input type="text" class="form-control" name="" disabled="" value="<?php echo course($idkhoahoc)['id_course'] ?>"></p>
 								<p><input type="text" class="form-control" name="tenkhsua" value="<?php echo course($idkhoahoc)['name_course'] ?>"></p>
 								
@@ -206,7 +207,7 @@ if (isset($_POST['tenkhthem'])) {
 						<div class="row" >
 						
 						<div class="col-md-7 offset-md-1">
-						<form method="POST">
+						<form method="POST" accept-charset="utf-8" enctype="multipart/form-data" >
 						 <div class="input-group mb-3" style="margin-top: 8px">
 						     <div class="input-group-prepend">
 						       <span class="input-group-text">Tên khóa học</span>

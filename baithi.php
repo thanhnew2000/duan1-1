@@ -256,23 +256,40 @@ var myVar = setInterval(clickFunction, <?php echo $time*60000 ?>);
 <!--  Hiện kết quả ra màn hinh -->
 
 	
-		<div style="width:500px;height:210px;background: white;margin: auto;margin-top: 10px" >
+	
+		
+	
+
+
+	<div style="width:500px;height:210px;background: white;margin: auto;margin-top: 10px" >
 			<p style="text-align: center;font-weight: bold;padding-top: 10px;font-size: 20px">KẾT QUẢ</p>
 			<p style="text-align: center;">Số câu đúng :<?php echo  $sodung.'/'.$rowtongcau['total']; ?></p>
 			<p style="text-align: center;">ĐIỂM : <?php echo ROUND($diem1cau*$sodung,1); ?> </p>
 			<a style="margin-left: 200px" href="index.php" class="btn btn-primary">KẾT THÚC </a>
 	  
-		</div>
-		
-	
-<?php 	$diem=ROUND($diem1cau*$sodung,1);
+	</div>
+	<?php 	$diem=ROUND($diem1cau*$sodung,1);
 			$iduser=$_SESSION['account']['id'];
-
-			$sqlluuketqua="INSERT INTO result_test VALUES ('','$iduser','$idtest','$diem') ";
-  			$conn->exec($sqlluuketqua);
- } ?>
-
-
+			 $last=$connketqua->lastInsertId();
+			 // if ($last==0) {
+			 // 	 		$sqlluuketqua="INSERT INTO result_test VALUES ('','$iduser','$idtest','$diem')";
+  		// 			$connketqua->exec($sqlluuketqua);
+  		// 			echo $last;
+			 // }else if ((result_test($last_id)['id_user']!==$iduser)&&(result_test($last_id)['id_test']!==$idtest)&&(result_test($last_id)['point']!==$diem)){
+			 // 	echo " khác 0	";
+			 // }
+			 // if ((result_test($last_id)['id_user']==$iduser)&&(result_test($last_id)['id_test']==$idtest)&&(result_test($last_id)['point']==$diem)) {
+			 	// echo $last;
+			 // }else{
+			 		$sqlluuketqua="INSERT INTO result_test VALUES ('','$iduser','$idtest','$diem')";
+  					$connketqua->exec($sqlluuketqua);
+			 // }
+		
+		
+  			
+  			
+  			?>
+<?php } ?>
 
 
 

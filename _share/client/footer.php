@@ -3,7 +3,7 @@
 
 				<p style="padding-top: 20px;font-weight: bold">VỀ CHÚNG TÔI</p>
 				<a href="" class="thea"><p style="font-size:14px">Giới thiệu</p></a>
-				<a href=""  class="thea"><p style="font-size:14px">Các giáo viên</p></a>
+				<a href="giaovien.php"  class="thea"><p style="font-size:14px">Các giáo viên</p></a>
 				<a href=""  class="thea"><p style="font-size:14px">Điều khoản và chính sách</p></a>
 			</div>
 			<div class="boxfoter">

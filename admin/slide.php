@@ -17,9 +17,10 @@
 
 </head>
 <?php if (isset($_POST['soanh'])) {
+			upload('capnhapanh','../public/images/advert/');
 		$id=$_POST['soanh'];
 		$linkanh=$_POST['linkanh'];
-		$capnhapanh=$_POST['capnhapanh'];
+		$capnhapanh=$_FILES['capnhapanh']['name'];
 			if ($capnhapanh=="") {
 			$splanhso="UPDATE slide_advert SET link='$linkanh' WHERE id='$id' ";
 			$conn->exec($splanhso);
@@ -30,8 +31,9 @@
 			header('location: slide.php');}
 
 }else if (isset($_POST['tieude1'])) {
+		upload('anhbia1','../public/images/advert/');
 	$tieude=$_POST['tieude1'];
-	$anhbia=$_POST['anhbia1'];
+	$anhbia=$_FILES['anhbia1']['name'];
 			if ($anhbia=="") {
 			$splanhbia="UPDATE slide_advert SET title='$tieude' WHERE id='1' ";
 			$conn->exec($splanhbia);
@@ -117,7 +119,7 @@
 			
 			        </div>
 			        <div class="modal-body">
-			        <form action="" method="POST" accept-charset="utf-8">
+			        <form action="" method="POST" accept-charset="utf-8" enctype="multipart/form-data" >
 			       <p style="font-weight: bold"> Tiêu đề: <input type="text" value="<?php echo slide_advert(1)['title'] ?>" name="tieude1" class="form-control"></p>	
 			        <input type="file" name="anhbia1" >
 
@@ -149,7 +151,7 @@
 			
 			        </div>
 			        <div class="modal-body">
-			        <form action="" method="POST" accept-charset="utf-8">
+			        <form action="" method="POST" accept-charset="utf-8" enctype="multipart/form-data" >
 			        <p style="font-weight: bold"> Link: <input type="text" name="linkanh" value="<?php echo slide_advert($i)['link'] ?>" class="form-control"></p>			
 			        <input type="file" name="capnhapanh" >
 			        <input type="text" name="soanh"  hidden="" value="<?php echo $i ?>">

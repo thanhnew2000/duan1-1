@@ -29,22 +29,22 @@
 		
 								<form action="" method="POST">
 								<p style="font-weight: bold">Họ và tên</p>
-								<input type="text"  class="form-control" name="name">
+								<input type="text"  class="form-control" required="" name="name">
 								<p style="font-weight: bold">Tài khoản</p>
-								<input type="text"  class="form-control" name="user">
+								<input type="text"  class="form-control" required="" name="user">
 								
 								<p style="font-weight: bold">Mật khẩu</p>
-								<input type="password"  class="form-control" name="pass">
+								<input type="password"  class="form-control" required="" name="pass">
 								<p style="font-weight: bold">Nhập lại mật khẩu</p>
-								<input type="password"  class="form-control" name="pass2">
+								<input type="password"  class="form-control" required="" name="pass2">
 							
 								<p style="font-weight: bold">Email</p>
-								<input type="email"  class="form-control" name="email">
+								<input type="email"  class="form-control" required="" name="email">
 						<p style="font-weight: bold">
 								Số điện thoại</p>
-								<input type="number"  class="form-control" name="sdt">
+								<input type="number"  class="form-control" required="" name="sdt">
 								<p style="font-weight: bold">Ngày sinh
-								<input type="date"  class="form-control" name="ngaysinh">
+								<input type="date"  class="form-control"  name="ngaysinh">
 								<p style="font-weight: bold">Giới tính </p>
 								<select name="gioitinh" class="form-control" >
 									<option value="1">Nam</option>

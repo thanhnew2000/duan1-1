@@ -1,7 +1,7 @@
  <?php if (($_SESSION['account']['role'])==1) {
-	header("location:http://localhost/DUAN1/index.php");
+	header("location: ../index.php");
 }else if(!isset($_SESSION['account'])){
-	header("location:http://localhost/DUAN1/dangnhap.php");
+	header("location: ../dangnhap.php");
 }?>
 
 	<div class="col-md-2" style="background: #222d32">

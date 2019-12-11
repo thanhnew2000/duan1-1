@@ -23,6 +23,13 @@ if (isset($_GET['idteacher'])) {
 }
 
  if (isset($_POST['workplacesua'])) {
+	if ($_FILES['anhsua']['name']!=="") {
+		upload('anhsua','../public/images/teacher/');
+	}
+}
+
+
+ if (isset($_POST['workplacesua'])) {
  	
  	$ngayinh=$_POST['ngaysinhsua'];
  	$hoten=$_POST['tensua'];
@@ -32,7 +39,7 @@ if (isset($_GET['idteacher'])) {
  	$diachi=$_POST['diachisua'];
  	$gioitinh=$_POST['gioitinhsua'];
  	$monday=$_POST['mondaysua'];
- 	$anhsua=$_POST['anhsua'];
+ 	$anhsua=$_FILES['anhsua']['name'];
  	$bangcap=$_POST['degreesua'];
 	$workplace=$_POST['workplacesua'];
 
@@ -43,6 +50,7 @@ if ($anhsua=="") {
 
 
 }else {
+
 	$splgvsua="UPDATE teacher SET name='$hoten',birthday='$ngayinh',infomation='$thongtin',phone_numbers='$sdt',email='$email',address='$diachi',gender='$gioitinh',specialize='$monday',image='$anhsua',degree='$bangcap',workplace='$workplace'
 	WHERE id_teacher='$idteacher' ";
 	$conn->exec($splgvsua);
@@ -89,10 +97,10 @@ if ($anhsua=="") {
 						</div>
 						<div class="col-md-7">
 							<p style="font-weight: bold ;font-size: 18px">Hồ sơ cá nhân
-								<a href="giaovien.php" style="margin-left: 350px" class="btn btn-info">Quay về</a></p>
+								<a href="giaovien.php"  style="margin-left: 350px" class="btn btn-info">Quay về</a></p>
 							<div class="row">
 								<div class="col-md-6">
-						<form method="POST">
+						<form method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 									<span style="font-weight: bold">Công tác</span>
 									<input type="text" class="form-control" name="workplacesua" value="<?php echo teacher($idteacher)['workplace'] ?>">
 								</div>

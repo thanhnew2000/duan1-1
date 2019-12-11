@@ -263,7 +263,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 							</p></a>
 								<img src="public/images/course/<?php echo $value['image'] ?>" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
 								<p style="margin-top: 25px;margin-left: 100px"><?php echo teacher($value['id_teacher'])['name'] ?></p>
-								<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">800.000đ</p>
+								<p style="margin-left: -45px;margin-top: 10px;float: left;font-weight: bold;color:red">Miễn Phí</p>
 								<a href="chitietkhoahoc.php?idkh=<?php echo $value['id_course'] ?>" class="btn btn-primary" style="float: right;margin-right: 10px"> Xem chi tiết </a>
 							</div>
 						</div>

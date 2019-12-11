@@ -7,8 +7,8 @@
 						    <span class="sr-only">Toggle Dropdown</span>
 						  </button>
 						  <div class="dropdown-menu">
-						    <a class="dropdown-item" href="http://localhost/DUAN1/">Về trang client</a>
-						    <a class="dropdown-item" href="http://localhost/DUAN1/them.php?do=logout">Đăng xuất</a>
+						    <a class="dropdown-item" href="../">Về trang client</a>
+						    <a class="dropdown-item" href="../them.php?do=logout">Đăng xuất</a>
 						  <!--   <a class="dropdown-item" href="#">Something else here</a>
 						    <div class="dropdown-divider"></div>
 						    <a class="dropdown-item" href="#">Separated link</a> -->

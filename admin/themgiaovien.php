@@ -15,6 +15,7 @@
 
 <?php 
 if (isset($_POST['tengvthem'])) {
+	upload('anhgvthem','../public/images/teacher/');
 	$ten=$_POST['tengvthem'];
 	$birthday=$_POST['birthdaygvthem'];
 	$sdt=$_POST['sdtgvthem'];
@@ -22,7 +23,7 @@ if (isset($_POST['tengvthem'])) {
 	$diachi=$_POST['diachigvthem'];
 	$gioitinh=$_POST['gendergvthem'];
 	$monday=$_POST['mondaygvthem'];
-	$anh=$_POST['anhgvthem'];
+	$anh=$_FILES['anhgvthem']['name'];
 	$bangcap=$_POST['degreegvthem'];
 	$workplace=$_POST['workplacegvthem'];
 	$thongtin=$_POST['infogvthem'];
@@ -55,7 +56,7 @@ if (isset($_POST['tengvthem'])) {
 				<div class="noidung">
 					<div class="row">
 					<div class="col-md-5">
-			<form method="POST">
+			<form method="POST"  accept-charset="utf-8" enctype="multipart/form-data">
 						<div class="input-group mb-3" style="margin-top: 8px">
 						    <div class="input-group-prepend">
 						    <span class="input-group-text">Tên</span>

@@ -11,8 +11,8 @@ try
   $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
   $conn2= new PDO("mysql:host=$hostname;dbname=$database",$username,$password,$options);
   $conn2->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-  // $connhistory= new PDO("mysql:host=$hostname;dbname=$database",$username,$password,$options);
-  // $connhistory->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+  $connketqua= new PDO("mysql:host=$hostname;dbname=$database",$username,$password,$options);
+  $connketqua->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
 
   		$sqltaikhoan="select * from users ";
@@ -349,6 +349,27 @@ function slide_advert($id){
 		}
 
 
+		
+
+function upload($namee,$duongdan){
+$fileType= array("jpg","png");
+$fileExt=pathinfo($_FILES["{$namee}"]["name"],PATHINFO_EXTENSION);
+
+if (!in_array($fileExt, $fileType)) {
+     $message="Chỉ đc tải ảnh file jpg hoặc png";
+}elseif (($_FILES["{$namee}"]['size'])>2000000) {
+	$message="Dung lương ko quá 2MB";
+	
+}else {
+	$link="{$duongdan}".basename($_FILES["{$namee}"]['name']);
+	if (move_uploaded_file($_FILES["{$namee}"]['tmp_name'],$link)) {
+			$message="Tải thành công";
+	}else{
+		$message="Tải không thành công";
+	}
+ return $message;
+}
+}
 
 
 function executeQuery($sql, $getAll = true){

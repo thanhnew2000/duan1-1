@@ -55,8 +55,9 @@
  <?php 
 
 
-		if (isset($_POST['logosetting'])) {
-			$logo=$_POST['logosetting'];
+		if (isset($_FILES['logosetting'])) {
+			upload('logosetting','../image/');
+			$logo=$_FILES['logosetting']['name'];
 			$sqlsualogo=" UPDATE setting SET logo='$logo'  ";
 			$conn->exec($sqlsualogo);
 			header("location: setting.php");
@@ -89,7 +90,7 @@
 						<div class="row">
 							<div class="col-md-5">
 
-			<form method="POST">
+			<form method="POST" >
 							<div class="input-group mb-3" style="margin-top: 8px">
 						     <div class="input-group-prepend">
 						       <span class="input-group-text">Email</span>
@@ -123,7 +124,7 @@
 			
 			        </div>
 			        <div class="modal-body">
-			        <form action="" method="POST" accept-charset="utf-8">
+			        <form action="" method="POST" accept-charset="utf-8" enctype="multipart/form-data" >
 			        		
 			         <input type="file" name="logosetting" >
 

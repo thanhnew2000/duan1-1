@@ -52,9 +52,10 @@
 	
 } ?>
 
-<?php if (isset($_POST['anhusermoi'])){
+<?php if (isset($_FILES['anhusermoi'])){
+		upload('anhusermoi','public/images/user/');
 	$iduser=$_SESSION['account']['id'];
-	 $anhusermoi=$_POST['anhusermoi'];
+	 $anhusermoi=$_FILES['anhusermoi']['name'];
 	 $sqldoianh="UPDATE users SET image='$anhusermoi' where id_user='$iduser'";
 							$conn->exec($sqldoianh);
 					header('location: thongtincanhan.php');
@@ -97,13 +98,13 @@
 			
 			        </div>
 			        <div class="modal-body">
-			        <form action="" method="POST" accept-charset="utf-8">
+			        <form action="" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 			        		
 			         <input type="file" name="anhusermoi" >
 
 			        </div>
 			        <div class="modal-footer">
-			           <button type="submit" class="btn btn-primary">Cập nhập</button>
+			           <button type="submit"  class="btn btn-primary">Cập nhập</button>
 			       </form>
 			        </div>
 			      </div>

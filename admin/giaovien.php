@@ -75,7 +75,7 @@ if (isset($_GET['xoaid'])) {
 						
 								<td><a href="chitietgiaovien.php?idteacher=<?php echo $value['id_teacher'];   ?>"  class="btn btn-info">Xem</a>
 						
-								<a href="chitietgiaovien.php?xoaid=<?php echo $value['id_teacher'];  ?>" onclick="return confirm('Bạn có muốn xóa giáo viên này không')"  class="btn btn-danger">Xóa</a>
+								<a href="giaovien.php?xoaid=<?php echo $value['id_teacher'];  ?>" onclick="return confirm('Bạn có muốn xóa giáo viên này không')"  class="btn btn-danger">Xóa</a>
 								</td>
 							</tr>
 						<?php } ?>
