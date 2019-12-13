@@ -96,7 +96,7 @@
 								} ?></td>
 								<td><?php echo $value['role_id']; ?></td>
 								<td><a href="chitiettaikhoan.php?idtk=<?php echo $value['id_user'];  ?>"  class="btn btn-info">Chi tiết</a>	
-								<a href="taikhoan.php?xoaid='<?php echo $value['id_user'];  ?>'" onclick="return confirm('Bạn có muốn xóa tài khoản này')"  class="btn btn-danger">Xóa</a>
+								<a href="taikhoan.php?xoaid=<?php echo $value['id_user'];  ?>" onclick="return confirm('Bạn có muốn xóa tài khoản này')"  class="btn btn-danger">Xóa</a>
 								</td>
 							</tr>
 						<?php } ?>

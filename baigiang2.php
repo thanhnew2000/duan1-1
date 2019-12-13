@@ -290,7 +290,7 @@ background-color: #aa66cc; }
 				  	<!-- BÌNH LUẬN -->
 					<form action="" method="POST" accept-charset="utf-8">
 					
-				  	<textarea name="binhluan" cols="38" style="height:35px;font-size: 14px"></textarea>
+				  	<textarea name="binhluan" cols="38" style="height:38px;font-size: 14px;border-radius: 5px;width:250px;    border: 1px solid #c8c4c4;"></textarea>
 				  	<button type="submit" class="btn btn-primary" style="margin-top: -29px" >GỬI</button>
 
 				    </form>

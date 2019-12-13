@@ -27,8 +27,9 @@ if (isset($_POST['tengvthem'])) {
 	$bangcap=$_POST['degreegvthem'];
 	$workplace=$_POST['workplacegvthem'];
 	$thongtin=$_POST['infogvthem'];
+	$namknthem=$_POST['namknthem'];
 
-	$sqlthemgiaovien="INSERT INTO teacher VALUES ('','$ten','$birthday','$thongtin','$sdt','$email','$diachi','$gioitinh','$monday','$anh','$bangcap','$workplace')";
+	$sqlthemgiaovien="INSERT INTO teacher VALUES ('','$ten','$birthday','$thongtin','$sdt','$email','$diachi','$gioitinh','$monday','$anh','$bangcap','$workplace','$namknthem')";
   	$conn->exec($sqlthemgiaovien);
   	$last_idgiaovien = $conn->lastInsertId();
   	header("location: chitietgiaovien.php?idteacher=$last_idgiaovien");
@@ -130,6 +131,12 @@ if (isset($_POST['tengvthem'])) {
 						    <span class="input-group-text">Nơi làm việc</span>
 						    </div>
 						    <input type="text" name="workplacegvthem" class="form-control">
+						</div>
+						<div class="input-group mb-3" style="margin-top: 8px">
+						    <div class="input-group-prepend">
+						    <span class="input-group-text">Năm kinh nghiệm</span>
+						    </div>
+						    <input type="number" name="namknthem" class="form-control">
 						</div>
 
 					</div>

@@ -194,6 +194,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 
 		</div>
 
+
 		<!--  Hết tiêu đề -->
 
 
@@ -218,7 +219,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 				<div class="box">
 					<div class="boxtren"><img src="public/images/course/<?php echo $value['image'] ?>" style="height: 170px;width:270px"></div>
 					<div class="boxduoi">
-					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">
+					<a href="chitietkhoahoc.php?idkh=<?php echo $value['id_course'] ?>" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">
 						<?php echo $value['name_course'] ?>
 					</p></a>
 						<img src="public/images/teacher/<?php echo teacher($value['id_teacher'])['image'] ?>" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
@@ -238,19 +239,23 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 				<a href="danhsach.php?idcate=2&&idmon=1" style="margin-top:-35px;margin-left:10px;    margin-right: 10px;font-weight: bold; float: right;font-size: 14px">Xem thêm</a>
 
 				<?php 
-						$sqlarraysub="select id_subcategory from subcategory where id_category=2 limit 4";
+						$sqlarraysub="select id_subcategory from subcategory where id_category=2 ";
 						$queryarraysub=$conn->prepare($sqlarraysub);
 						$queryarraysub->execute();
 						$rowsub=$queryarraysub->fetchAll(PDO::FETCH_ASSOC);
-
+					$mang=[];
 					foreach ($rowsub as $value) {
+
 						$idsub=$value['id_subcategory'];
-						$sqlcourse12="select * from course where id_subcategory=$idsub order by id_course desc limit 1";
+				
+						$sqlcourse12="select * from course where id_subcategory='$idsub' order by id_course desc limit 1 ";
 						$querycourse12=$conn->prepare($sqlcourse12);
 						$querycourse12->execute();
 						$rowcourse12=$querycourse12->fetchAll(PDO::FETCH_ASSOC);
-				
+			
+					
 							 ?>
+
 				<?php foreach ($rowcourse12 as $value){ ?>
 							
 						
@@ -258,7 +263,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 						<div class="box">
 							<div class="boxtren"><img src="public/images/course/<?php echo $value['image'] ?>" style="height: 170px;width:270px"></div>
 							<div class="boxduoi">
-							<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">
+							<a href="chitietkhoahoc.php?idkh=<?php echo $value['id_course'] ?>" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px">
 								<?php echo $value['name_course'] ?>
 							</p></a>
 								<img src="public/images/course/<?php echo $value['image'] ?>" style="height: 45px;width: 45px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
@@ -305,7 +310,7 @@ ExomXm9BGFw/UmFqgFo-rFI/AAAAAAAAAE4/JMc1KSveWco/s1600/Top.png'/></a></script>
 					<div class="cotgiaovien">
 						<img src="public/images/teacher/<?php echo teacher($value['id_teacher'])['image']; ?>" style="height: 250px;background: gold;width:100%">
 						<div class="cotgiaoviendown">
-							<a href="" class="thea"><p style="text-align: center;margin-top: 10px;font-weight: bold">
+							<a href="chitietgiaovien.php?idgiaovien=<?php echo $value['id_teacher'] ?>" class="thea"><p style="text-align: center;margin-top: 10px;font-weight: bold">
 								<?php if ((teacher($value['id_teacher'])['gender'])==2){echo 'Cô';}
 							else{echo 'Thầy';} ?>
 								<?php echo teacher($value['id_teacher'])['name'] ?></p></a>

@@ -42,16 +42,17 @@ if (isset($_GET['idteacher'])) {
  	$anhsua=$_FILES['anhsua']['name'];
  	$bangcap=$_POST['degreesua'];
 	$workplace=$_POST['workplacesua'];
+	$namknsua=$_POST['namknsua'];
 
 if ($anhsua=="") {
-	$splgvsua="UPDATE teacher SET name='$hoten',birthday='$ngayinh',infomation='$thongtin',phone_numbers='$sdt',email='$email',address='$diachi',gender='$gioitinh',specialize='$monday',degree='$bangcap',workplace='$workplace' WHERE id_teacher='$idteacher' ";
+	$splgvsua="UPDATE teacher SET name='$hoten',birthday='$ngayinh',infomation='$thongtin',phone_numbers='$sdt',email='$email',address='$diachi',gender='$gioitinh',specialize='$monday',degree='$bangcap',workplace='$workplace',experience_time='$namknsua' WHERE id_teacher='$idteacher' ";
 	$conn->exec($splgvsua);
 	$ketqua="Sửa thành công";
 
 
 }else {
 
-	$splgvsua="UPDATE teacher SET name='$hoten',birthday='$ngayinh',infomation='$thongtin',phone_numbers='$sdt',email='$email',address='$diachi',gender='$gioitinh',specialize='$monday',image='$anhsua',degree='$bangcap',workplace='$workplace'
+	$splgvsua="UPDATE teacher SET name='$hoten',birthday='$ngayinh',infomation='$thongtin',phone_numbers='$sdt',email='$email',address='$diachi',gender='$gioitinh',specialize='$monday',image='$anhsua',degree='$bangcap',workplace='$workplace',experience_time='$namknsua'
 	WHERE id_teacher='$idteacher' ";
 	$conn->exec($splgvsua);
 	$ketqua="Sửa thành công";
@@ -132,10 +133,16 @@ if ($anhsua=="") {
 									<input type="file"  class="form-control" name="anhsua" value ="">
 								</div>
 							</div>
-
-							
+						<div class="row">
+							<div class="col-md-9">
 							<span style="font-weight: bold">Địa chỉ </span>
 							<input type="text" name="diachisua" value="<?php echo teacher($idteacher)['address'] ?>" class="form-control">
+						</div>
+							<div class="col-md-3">
+							<span style="font-weight: bold">Năm - KN</span>
+							<input type="number" name="namknsua" value="<?php echo teacher($idteacher)['experience_time'] ?>" class="form-control">
+						</div>
+						</div>
 
 							<div class="row">
 								<div class="col-md-4">

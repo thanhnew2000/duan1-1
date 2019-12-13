@@ -48,22 +48,63 @@
 
 
 				<div class="row" style="width:1347px;margin: auto">
-				<div class="col-md-3" style="float: left;margin-left: 150px">
+			<!-- 	<div class="col-md-3" style="float: left;margin-left: 150px">
 				<p style=" color: white;padding-top: 70px;margin-left: 50px;font-size: 25px;text-align: center;font-weight:bold">1.000 +</p>
 				<p style="background: gold; height:3px;width:100px;margin-left: 129px;text-align: center;"></p>
 				<p style=" color: white;margin-left: 50px;text-align: center;">Học sinh theo dõi</p>
-				</div>
+				</div> -->
 
 
-				<div class="col-md-3" style="float: left;">
-				<p style=" color: white;padding-top: 70px;margin-left: 50px;font-size: 25px;text-align: center;font-weight:bold">100 +</p>
+				<div class="col-md-3 offset-md-3" style="float: left;">
+				<p style=" color: white;padding-top: 70px;margin-left: 50px;font-size: 25px;text-align: center;font-weight:bold">
+				
+				<?php 
+				$tong=[];
+				$sqlabc1="select * from course where id_teacher='$idgiaovien' ";
+				$queryabc1=$conn->prepare($sqlabc1);
+				$queryabc1->execute();
+				$rowabc1= $queryabc1->fetchAll(PDO::FETCH_ASSOC);
+
+				foreach ($rowabc1 as $value) {
+					$id_course=$value['id_course'];
+				$sqlabc2="select * from topic where id_course='$id_course' ";
+				$queryabc2=$conn->prepare($sqlabc2);
+				$queryabc2->execute();
+				$rowabc2=$queryabc2->fetchAll(PDO::FETCH_ASSOC);
+
+
+				foreach ($rowabc2 as $value) {
+					$id_topic=$value['id_topic'];
+				$sqlabc3="select * from lesson where id_topic='$id_topic' ";
+				$queryabc3=$conn->prepare($sqlabc3);
+				$queryabc3->execute();
+				$rowabc3=$queryabc3->fetchAll(PDO::FETCH_ASSOC);
+
+				foreach ($rowabc3 as $value) {
+					array_push($tong,$value['id_lesson']);
+				}
+				}
+
+				}
+			 	$a=count($tong);
+			 	echo $a.'+';
+
+				 ?>
+
+
+			
+
+
+
+				</p>
 				<p style="background: gold; height:3px;width:100px;margin-left: 129px;text-align: center;"></p>
 				<p style=" color: white;margin-left: 50px;text-align: center;">Bài giảng online</p>
 				</div>
 
 
 				<div class="col-md-3" style="float: left;">
-				<p style=" color: white;padding-top: 70px;margin-left: 50px;font-size: 25px;text-align: center;font-weight:bold">11 +</p>
+				<p style=" color: white;padding-top: 70px;margin-left: 50px;font-size: 25px;text-align: center;font-weight:bold">
+				<?php echo teacher($idgiaovien)['experience_time']; ?> +</p>
 				<p style="background: gold; height:3px;width:100px;margin-left: 129px;text-align: center;"></p>
 				<p style=" color: white;margin-left: 50px;text-align: center;">Năm kinh nghiệm</p>
 				</div>

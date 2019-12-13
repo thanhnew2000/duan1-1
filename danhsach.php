@@ -121,7 +121,7 @@ if (isset($_GET['idcate'])) {
 
 				<div class="box2">
 					<div class="boxtren2"><img src="public/images/course/<?php echo $value['image'] ?>" style="height: 150px;width:100%"></div>
-					<div class="boxduoi2">
+					<div class="boxduoi2" style="background:#f5f5f5">
 					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px;font-size: 14px"><?php echo $value['name_course'] ?></p></a>
 						<img src="public/images/teacher/<?php echo teacher($value['id_teacher'])['image'] ?>" style="height: 35px;width: 35px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
 						<p style="margin-top: 25px;margin-left: 70px;font-size: 14px"><?php echo teacher($value['id_teacher'])['name'] ?></p>
@@ -179,7 +179,7 @@ if (isset($_GET['idcate'])) {
 	
 			<div class="box2" style="margin-left: 10px">
 					<div class="boxtren2"><img src="public/images/course/<?php echo $value['image'] ?>" style="height: 150px;width:100%"></div>
-					<div class="boxduoi2">
+					<div class="boxduoi2" style="background:#f5f5f5">
 					<a href="" class="thea"><p style="font-weight: bold;color: black;margin-left: 10px;height:27px;font-size: 14px"><?php echo $value['name_course'] ?></p></a>
 						<img src="public/images/teacher/<?php echo teacher($value['id_teacher'])['image'] ?>" style="height: 35px;width: 35px;border-radius: 100%;float: left;margin-left: 10px;margin-top: 5px">
 						<p style="margin-top: 25px;margin-left: 70px;font-size: 14px"><?php echo teacher($value['id_teacher'])['name'] ?></p>
