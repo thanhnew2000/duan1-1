@@ -100,7 +100,7 @@
 						</tbody>
 					</table>
 
-<?php }elseif (isset($_GET['chitietbl'])) { $idbl=$_GET['chitietbl']; ?>
+<?php }elseif (isset($_GET['chitietbl'])) { $idbl=$_GET['chitietbl']; $idkh=comment($idbl)['id_course']; ?>
 							
 
 							<div class="row">
@@ -122,10 +122,17 @@
 
 							 	<div class="input-group mb-3" style="margin-top: 8px">
 								    <div class="input-group-prepend">
-								    <span class="input-group-text">ID Bài giảng</span>
+								    <span class="input-group-text">ID Khóa học</span>
 								    </div>
 								    <input type="text"  disabled="" value="<?php echo comment($idbl)['id_course']; ?>" name="athem" class="form-control">
-							 </div>		
+							 </div>	
+							 	<div class="input-group mb-3" style="margin-top: 8px">
+								    <div class="input-group-prepend">
+								    <span class="input-group-text">Tên bài giảng</span>
+								    </div>
+								    <input type="text"  disabled="" value="<?php echo course($idkh)['name_course']; ?>" name="" class="form-control">
+								    <a href="../chitietkhoahoc.php?idkh=<?php echo $idkh ?>" class="btn btn-info" style="margin-left: 10px">XEM</a>
+							 </div>			
 								
 
 								<div class="row">

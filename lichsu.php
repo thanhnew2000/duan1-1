@@ -57,7 +57,7 @@ if (isset($_SESSION['account'])) {
 			
 			        </div>
 			        <div class="modal-body">
-			        <form action="" method="POST" accept-charset="utf-8">
+			        <form action="thongtincanhan.php" method="POST" accept-charset="utf-8"  enctype="multipart/form-data">
 			        		
 			         <input type="file" name="anhusermoi" >
 
@@ -109,7 +109,7 @@ if (isset($_SESSION['account'])) {
 
 
 
-		    $result="select count(id_history) as total from history where id_user='4'" ;
+		    $result="select count(id_history) as total from history where id_user='$iduser'" ;
 		    $result2=$conn->prepare($result);
 		    $result2->execute();
 		    $rowrs=$result2->fetch(PDO::FETCH_ASSOC);
@@ -143,7 +143,7 @@ if (isset($_SESSION['account'])) {
 		    
 
 
-				$sqlhistorytest="select * from history where id_user='4' order by id_history desc limit $start,$limit ";
+				$sqlhistorytest="select * from history where id_user='$iduser' order by id_history desc limit $start,$limit ";
 				$queryhistory=$conn->prepare($sqlhistorytest);
 				$queryhistory->execute();
 				$rowrhistory= $queryhistory->fetchAll(PDO::FETCH_ASSOC);

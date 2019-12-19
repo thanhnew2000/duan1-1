@@ -70,7 +70,7 @@
 				<div class="noidung"><form method="POST">
 					<a href="chitietbaigiang.php?thembaigiang" class="btn btn-info">Thêm bài giảng </a>
 
-					<input style="height: 37px;margin-left: 570px;margin-right: 5px;padding-left: 5px" placeholder="id bài giảng" type="text" name="timkiemid"><button type="submit" class="btn btn-info">Tìm</button></form>
+					<input style="height: 37px;margin-left: 570px;margin-right: 5px;padding-left: 5px" required="" placeholder="id bài giảng" type="text" name="timkiemid"><button type="submit" class="btn btn-info">Tìm</button></form>
 <?php if (!isset($_POST['timkiemid'])){ ?>
 	
 

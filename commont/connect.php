@@ -13,6 +13,8 @@ try
   $conn2->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
   $connketqua= new PDO("mysql:host=$hostname;dbname=$database",$username,$password,$options);
   $connketqua->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+  $connhistory= new PDO("mysql:host=$hostname;dbname=$database",$username,$password,$options);
+  $connhistory->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
 
   		$sqltaikhoan="select * from users ";

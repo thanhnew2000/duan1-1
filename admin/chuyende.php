@@ -82,7 +82,7 @@ if (isset($_GET['xoaid'])) {
 
 				<div class="noidung"><form method="POST">
 					<a href="chitietchuyende.php?themchuyende" class="btn btn-info">Thêm chuyên đề </a>
-						<input style="height: 37px;margin-left: 570px;margin-right: 5px;padding-left: 5px" placeholder="id chuyên đề" type="text" name="timkiemid"><button type="submit" class="btn btn-info">Tìm</button></form>
+						<input style="height: 37px;margin-left: 570px;margin-right: 5px;padding-left: 5px" required="" placeholder="id chuyên đề" type="text" name="timkiemid"><button type="submit" class="btn btn-info">Tìm</button></form>
 <?php if (!isset($_POST['timkiemid'])){ ?>
 					<table class="table table-striped">
 						<thead>

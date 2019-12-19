@@ -178,7 +178,7 @@
 								<?php } ?>
 							
 							</select>
-							<input type="number" class="form-control" name="" disabled="" value="<?php echo users($_SESSION['account']['id'])['phone_numbers']; ?>">
+							<input type="number" class="form-control" name="" disabled="" value="<?php echo '0'.users($_SESSION['account']['id'])['phone_numbers']; ?>">
 							<input type="email" class="form-control" name="" disabled value="<?php echo users($_SESSION['account']['id'])['email']; ?>">
 							<input type="text" class="form-control" name="addresscn"  value="<?php echo users($_SESSION['account']['id'])['address']; ?>">
 						</div>

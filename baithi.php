@@ -199,10 +199,6 @@ var myVar = setInterval(clickFunction, <?php echo $time*60000 ?>);
 			<div class="col-md-6 offset-md-1" style="background: white;border-radius: 10px;float: left;">
 			<p style="font-size: 17px;text-align: center;padding-top: 10px;font-weight: bold"><?php echo test($idtest)['name_test'] ?>
 
-			<!-- 	<span style="float: right;color:#17a2b8"><?php if(isset($_POST['hoanthanh'])){
-					echo $sodung.'/'.$rowtongcau['total'].' Điểm là :'.ROUND($diem1cau*$sodung,1);
-				} ?></span></p>
-		 -->
 
 				<?php $socau=0 ?>
 				<?php foreach (test_questionAll($idtest) as $key => $value){ 
@@ -210,6 +206,10 @@ var myVar = setInterval(clickFunction, <?php echo $time*60000 ?>);
 			
 					<div class="boxbailam">
 							<b><?php echo $socau.' . '.question($value['id_question'])['name_question']; ?>
+							<?php if (question($value['id_question'])['image']!="") { echo "</br>" ?>
+
+								<img src="public/images/test/<?php echo question($value['id_question'])['image'] ?>" alt="" style="width:500px;text-align: center;">
+							 <?php  } ?>
 								
 							</b>
 
@@ -259,36 +259,25 @@ var myVar = setInterval(clickFunction, <?php echo $time*60000 ?>);
 	
 		
 	
-
+	<form action="luuketquatest.php" method="POST" accept-charset="utf-8">
 
 	<div style="width:500px;height:210px;background: white;margin: auto;margin-top: 10px" >
 			<p style="text-align: center;font-weight: bold;padding-top: 10px;font-size: 20px">KẾT QUẢ</p>
 			<p style="text-align: center;">Số câu đúng :<?php echo  $sodung.'/'.$rowtongcau['total']; ?></p>
 			<p style="text-align: center;">ĐIỂM : <?php echo ROUND($diem1cau*$sodung,1); ?> </p>
-			<a style="margin-left: 200px" href="index.php" class="btn btn-primary">KẾT THÚC </a>
-	  
+
+
+				<?php $diem=ROUND($diem1cau*$sodung,1); ?>
+			
+				
+				<input type="hidden" name="diem" value="<?php echo $diem ?>">
+				<input type="hidden" name="idtest" value="<?php echo $idtest ?>">
+				<input type="hidden" name="iduser"  value="<?php echo $_SESSION['account']['id'] ?>">
+			<button type="submit" class="btn btn-primary" style="margin-left: 200px">KẾT THÚC</button>
+		<!-- 	<a style="margin-left: 200px" href="index.php" class="btn btn-primary">KẾT THÚC </a> -->
+	 	 </form>
 	</div>
-	<?php 	$diem=ROUND($diem1cau*$sodung,1);
-			$iduser=$_SESSION['account']['id'];
-			 $last=$connketqua->lastInsertId();
-			 // if ($last==0) {
-			 // 	 		$sqlluuketqua="INSERT INTO result_test VALUES ('','$iduser','$idtest','$diem')";
-  		// 			$connketqua->exec($sqlluuketqua);
-  		// 			echo $last;
-			 // }else if ((result_test($last_id)['id_user']!==$iduser)&&(result_test($last_id)['id_test']!==$idtest)&&(result_test($last_id)['point']!==$diem)){
-			 // 	echo " khác 0	";
-			 // }
-			 // if ((result_test($last_id)['id_user']==$iduser)&&(result_test($last_id)['id_test']==$idtest)&&(result_test($last_id)['point']==$diem)) {
-			 	// echo $last;
-			 // }else{
-			 		$sqlluuketqua="INSERT INTO result_test VALUES ('','$iduser','$idtest','$diem')";
-  					$connketqua->exec($sqlluuketqua);
-			 // }
-		
-		
-  			
-  			
-  			?>
+
 <?php } ?>
 
 
@@ -312,33 +301,12 @@ var myVar = setInterval(clickFunction, <?php echo $time*60000 ?>);
 </div>
 
 
-	<div class="footer" style="border-top: 1px solid #ddd">
-				<div class="boxfoter" style="margin-left: 110px">
 
-				<p style="padding-top: 20px;font-weight: bold">VỀ CHÚNG TÔI</p>
-				<a href="" class="thea"><p style="font-size:14px">Giới thiệu</p></a>
-				<a href=""  class="thea"><p style="font-size:14px">Các giáo viên</p></a>
-				<a href=""  class="thea"><p style="font-size:14px">Điều khoản và chính sách</p></a>
-			</div>
-			<div class="boxfoter">
+<!-- div.header2 -->
+    <?php include_once '_share/client/footer.php' ?>
+<!-- hết div.header2 -->
 
-				<p style="padding-top: 20px;font-weight: bold">HỖ TRỢ KHÁCH HÀNG</p>
-				<a href=""  class="thea"><p style="font-size:14px">Email: hotro@hocmai.vn</p></a>
-				<a href=""  class="thea"><p style="font-size:14px">SĐT : 0983298429</p></a>
-			</div>
-			<div class="boxfoter">
-			</br></br>
-				<img src="image/dangky.png" style="width:200px;">
-				<!-- <p style="font-size:14px;text-align: center">Đơn vị chủ quản: Công ty cổ phần công nghệ giáo dục Zuni
-GPKD: 0313282391 cấp ngày 01/06/2015 tại Sở Kế Hoạch và Đầu Tư TP Hồ Chí Minh
-Địa chỉ văn phòng: 457 Nguyễn Đình Chiểu, Phường 05, Quận 03, TP Hồ Chí Minh</p> -->
-			</div>
-			<div class="boxfoters">
 
-				<p style="padding-top: 20px;font-weight: bold">Ủng hộ chúng tôi</p>
-				<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FFeeling.wd%2F%3F__tn__%3DkCH-R%26eid%3DARBiqg9lqU0fx6nDx6VRI0aIUGuiXVitcManDeViRh0e64sNh5X96hjvQPjoK7hCLerbiY5dMmQ1cdJA%26hc_ref%3DART3Z04Ke5nI6oXON_J6cunxcXcpiR735d1vA1tRFKx_2blQv6yV2hH2ctGmLS_oBeE%26fref%3Dnf&tabs=300&width=300&height=170&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="300" height="170" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
-			</div>
-		</div>
 	</div>
 	
 	

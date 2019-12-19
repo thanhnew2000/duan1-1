@@ -41,11 +41,12 @@ if (isset($_POST['guithem'])) {
 }
 
 if (isset($_POST['guisua'])) {
+	upload('anhsua','../public/images/test/');
 	$idsuacau=$_GET['suacauhoi'];
 	$idmonsua=$_POST['idmonsua'];
 	$cauhoisua=$_POST['cauhoisua'];
 
-	$anhsua=$_POST['anhsua'];
+	$anhsua=$_FILES['anhsua']['name'];
 	$levelsua=$_POST['levelsua'];
 	$asua=$_POST['asua'];
 	$bsua=$_POST['bsua'];
@@ -53,10 +54,18 @@ if (isset($_POST['guisua'])) {
 	$dsua=$_POST['dsua'];
 	$dapansua=$_POST['dapansua'];
 
-	$spldoi="UPDATE question SET name_question='$cauhoisua' ,image='$anhsua',a='$asua',b='$bsua',c='$csua',d='$dsua',answer='$dapansua',id_subcategory='$idmonsua'
+	if ($anhsua=="") {
+			$spldoi="UPDATE question SET name_question='$cauhoisua',a='$asua',b='$bsua',c='$csua',d='$dsua',answer='$dapansua',id_subcategory='$idmonsua'
 	WHERE id_question='$idsuacau' ";
 	$conn->exec($spldoi);
 	header("location: cauhoi.php");
+	}else {
+		$spldoi="UPDATE question SET name_question='$cauhoisua' ,image='$anhsua',a='$asua',b='$bsua',c='$csua',d='$dsua',answer='$dapansua',id_subcategory='$idmonsua'
+	WHERE id_question='$idsuacau' ";
+	$conn->exec($spldoi);
+	header("location: cauhoi.php");
+	}
+	
 
 	
 }
@@ -126,7 +135,9 @@ if (isset($_POST['guisua'])) {
 						  <div class="custom-file mb-3">
 						      <input type="file" class="custom-file-input" id="customFile" name="anhthem">
 						      <label class="custom-file-label" for="customFile">Choose file</label>
-						    </div>
+						   </div>
+					
+
 						<script>
 							
 						// Add the following code if you want the name of the file appear on select
@@ -202,7 +213,7 @@ if (isset($_POST['guisua'])) {
 					<?php }else if(isset($_GET['suacauhoi'])){ $idcausua=$_GET['suacauhoi'];?>	
 
 				<div class="col-md-4">
-						<form method="POST">
+						<form method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 						<p style="font-size:20px;font-weight: bold">Nội dung câu hỏi Sửa</p>
 						<p style="font-weight: bold">Môn:
 						<select name="idmonsua" class="form-control">
@@ -222,9 +233,14 @@ if (isset($_POST['guisua'])) {
 						
 
 						  <div class="custom-file mb-3">
+
 						      <input type="file" class="custom-file-input" id="customFile" name="anhsua">
 						      <label class="custom-file-label" for="customFile">Choose file</label>
 						    </div>
+
+						<?php if (question($idcausua)['image']!="") { ?>
+						<img src="../public/images/test/<?php echo question($idcausua)['image'] ?>" alt="" style="width:150px;text-align: center;">
+						<?php  } ?>
 						<script>
 							
 						// Add the following code if you want the name of the file appear on select

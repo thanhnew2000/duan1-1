@@ -51,16 +51,6 @@
 	
 } ?>
 
-<?php if (isset($_POST['anhusermoi'])){
-	$iduser=$_SESSION['account']['id'];
-	 $anhusermoi=$_POST['anhusermoi'];
-	 $sqldoianh="UPDATE users SET image='$anhusermoi' where id_user='$iduser' ";
-							$conn->exec($sqldoianh);
-					header('location: thongtincanhan.php');
-	
-} ?>
-
-
 
 
 
@@ -96,7 +86,7 @@
 			
 			        </div>
 			        <div class="modal-body">
-			        <form action="" method="POST" accept-charset="utf-8">
+			        <form action="thongtincanhan.php" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 			        		
 			         <input type="file" name="anhusermoi" >
 
@@ -181,7 +171,7 @@
 									<td><?php echo $idtest ?></td>
 									<td><?php echo  test($idtest)['name_test'] ?></td>
 									<td><?php echo subcategory(test($idtest)['id_subcategory'])['name_subcategory'] .' - '.category($idcategory)['name_category'] ?></td>
-									<td><?php echo  $value['point'] ?></td>
+									<td style="color: red;font-weight: bold"><?php echo  $value['point'] ?></td>
 									<!-- <td><a href="" class="btn btn-danger">Xóa</a></td> -->
 								</tr>
 								<?php } ?>
